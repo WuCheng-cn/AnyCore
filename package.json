@@ -45,7 +45,5 @@
     "vant": "^4.9.21",
     "vue": "^3.5.18",
     "vue3-colorpicker": "^2.3.0"
-  },
-  "devDependencies": {
   }
 }
