@@ -4,6 +4,7 @@ dist
 
 # 依赖
 node_modules
+.yarn/global
 .pnp.cjs
 .pnp.loader.mjs
 
