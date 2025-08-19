@@ -12,7 +12,11 @@ export const CUSTOM_FIELD_PROPERTY_KEY = 'CustomField'
  * @param dictionaryArray 字典数组或者字典code(传入字典code自动调用字典接口)
  */
 export function CustomField(name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel> | (() => Promise<IDictionary[]>)): any {
-  return async function (target: any, key: string) {
+  return async function (target: any, keyOrContext: string | ClassFieldDecoratorContext) {
+    if (typeof keyOrContext === 'object' && keyOrContext.kind !== 'field') {
+      throw new Error(`【${keyOrContext.name?.toString()}】CustomField装饰器只能用于类的字段`)
+    }
+
     let data: AnyDictionaryArrayModel<AnyDictionaryModel> | undefined
     if (typeof dictionaryArray === 'function') {
       const res = await dictionaryArray()
@@ -21,7 +25,8 @@ export function CustomField(name: string, dictionaryArray?: AnyDictionaryArrayMo
     else {
       data = dictionaryArray
     }
-    AnyDecoratorHelper.setFieldConfig(target, key, CUSTOM_FIELD_PROPERTY_KEY, {
+
+    AnyDecoratorHelper.setFieldConfig(target, keyOrContext, CUSTOM_FIELD_PROPERTY_KEY, {
       name,
       dictionaryArray: data || [],
     })
@@ -34,7 +39,7 @@ export function CustomField(name: string, dictionaryArray?: AnyDictionaryArrayMo
  * @param field 字段
  */
 export function getCustomFieldName(target: any, field: string) {
-  return AnyDecoratorHelper.getFieldConfigList<{ name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel> }>(target, CUSTOM_FIELD_PROPERTY_KEY, [field])?.[field]?.name
+  return AnyDecoratorHelper.getFieldConfigObject<{ name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel> }>(target, CUSTOM_FIELD_PROPERTY_KEY, [field])?.[field]?.name
 }
 
 /**
@@ -43,5 +48,5 @@ export function getCustomFieldName(target: any, field: string) {
  * @param field
  */
 export function getCustomFieldDictionaryArray(target: any, field: string) {
-  return AnyDecoratorHelper.getFieldConfigList<{ name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel> }>(target, CUSTOM_FIELD_PROPERTY_KEY, [field])?.[field]?.dictionaryArray
+  return AnyDecoratorHelper.getFieldConfigObject<{ name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel> }>(target, CUSTOM_FIELD_PROPERTY_KEY, [field])?.[field]?.dictionaryArray
 }

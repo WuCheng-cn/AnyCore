@@ -1,8 +1,9 @@
-import { FormField, getFormFieldConfigObj, getFormFieldList } from '@/decorator/FormField'
-import { EFormItemType } from '@/enum/EFormItemType'
 import { describe, expect, it } from 'vitest'
+import { FormField, getFormFieldConfigObj, getFormFieldList } from '../../decorator/FormField'
+import { EFormItemType } from '../../enum/EFormItemType'
+import { AnyBaseModel } from '../../model/AnyBaseModel'
 
-class TestClass {
+class TestClass extends AnyBaseModel {
   @FormField({
     formType: EFormItemType.INPUT,
     label: 'test',

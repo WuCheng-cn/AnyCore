@@ -1,15 +1,11 @@
-import { getTableFieldConfigObj, getTableFieldList, TableField } from '@/decorator/TableField'
 import { describe, expect, it } from 'vitest'
+import { getTableFieldConfigObj, getTableFieldList, TableField } from '../../decorator/TableField'
 
 class TestClass {
-  @TableField({
-    label: 'test',
-  })
+  @TableField({ label: 'test' })
   test?: string
 
-  @TableField({
-    label: 'test2',
-  })
+  @TableField({ label: 'test2' })
   test2?: string
 
   test3?: string

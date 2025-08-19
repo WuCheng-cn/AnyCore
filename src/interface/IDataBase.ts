@@ -1,7 +1,7 @@
 /**
  * # 海特额外字段
  */
-interface IDataBaseHitke {
+interface IDataBaseCustom {
   createName: string
   updateName: string
 }
@@ -9,7 +9,7 @@ interface IDataBaseHitke {
 /**
  * # 数据库基类实现接口
  */
-export interface IDataBase extends IDataBaseHitke {
+export interface IDataBase extends IDataBaseCustom {
   id: string
   createBy: string
   createDate: Date

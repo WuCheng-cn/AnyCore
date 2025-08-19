@@ -8,8 +8,11 @@ export const TABLE_FIELD_PROPERTY_KEY = 'TableField'
  * @param config 字段配置
  */
 export function TableField(config?: ITableFieldConfig) {
-  return function (target: any, key: string) {
-    AnyDecoratorHelper.setFieldConfig(target, key, TABLE_FIELD_PROPERTY_KEY, config || {})
+  return function (target: any, keyOrContext: string | ClassFieldDecoratorContext) {
+    if (typeof keyOrContext === 'object' && keyOrContext.kind !== 'field') {
+      throw new Error(`【${keyOrContext.name?.toString()}】TableField装饰器只能用于类的字段`)
+    }
+    AnyDecoratorHelper.setFieldConfig(target, keyOrContext, TABLE_FIELD_PROPERTY_KEY, config || {})
   }
 }
 
@@ -27,5 +30,5 @@ export function getTableFieldList(target: any) {
  * @param fieldList 字段列表，不传时获取所有标记了``@TableField``的属性的配置
  */
 export function getTableFieldConfigObj(target: any, fieldList: string[] = []) {
-  return AnyDecoratorHelper.getFieldConfigList<ITableFieldConfig>(target, TABLE_FIELD_PROPERTY_KEY, fieldList)
+  return AnyDecoratorHelper.getFieldConfigObject<ITableFieldConfig>(target, TABLE_FIELD_PROPERTY_KEY, fieldList)
 }

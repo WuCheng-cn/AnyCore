@@ -1,7 +1,7 @@
-import { CustomField, getCustomFieldDictionaryArray, getCustomFieldName } from '@/decorator/CustomField'
-import { AnyDictionaryHelper } from '@/helper/AnyDictionaryHelper'
-import { AnyBaseModel } from '@/model/AnyBaseModel'
 import { describe, expect, it } from 'vitest'
+import { CustomField, getCustomFieldDictionaryArray, getCustomFieldName } from '../../decorator/CustomField'
+import { AnyDictionaryHelper } from '../../helper/AnyDictionaryHelper'
+import { AnyBaseModel } from '../../model/AnyBaseModel'
 
 describe('customField', () => {
   enum TestEnum {

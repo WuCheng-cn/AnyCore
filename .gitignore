@@ -1,1 +1,11 @@
+# 编译输出
 lib
+dist
+
+# 依赖
+node_modules
+.pnp.cjs
+.pnp.loader.mjs
+
+# 缓存
+.eslintcache

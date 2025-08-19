@@ -8,8 +8,11 @@ export const SEARCH_FIELD_PROPERTY_KEY = 'SearchField'
  * @param config 字段配置
  */
 export function SearchField(config?: ISearchFieldConfig) {
-  return function (target: any, key: string) {
-    AnyDecoratorHelper.setFieldConfig(target, key, SEARCH_FIELD_PROPERTY_KEY, config || {})
+  return function (target: any, keyOrContext: string | ClassFieldDecoratorContext) {
+    if (typeof keyOrContext === 'object' && keyOrContext.kind !== 'field') {
+      throw new Error(`【${keyOrContext.name?.toString()}】SearchField装饰器只能用于类的字段`)
+    }
+    AnyDecoratorHelper.setFieldConfig(target, keyOrContext, SEARCH_FIELD_PROPERTY_KEY, config || {})
   }
 }
 
@@ -27,5 +30,5 @@ export function getSearchFieldList(target: any) {
  * @param fieldList 字段列表，不传时获取所有标记了``@SearchField``的属性的配置
  */
 export function getSearchFiledConfigObj(target: any, fieldList: string[] = []) {
-  return AnyDecoratorHelper.getFieldConfigList<ISearchFieldConfig>(target, SEARCH_FIELD_PROPERTY_KEY, fieldList)
+  return AnyDecoratorHelper.getFieldConfigObject<ISearchFieldConfig>(target, SEARCH_FIELD_PROPERTY_KEY, fieldList)
 }

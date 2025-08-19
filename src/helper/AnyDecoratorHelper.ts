@@ -66,13 +66,22 @@ export class AnyDecoratorHelper {
   /**
    * # 设置一个字段配置项
    * @param target 目标类
-   * @param key 字段
+   * @param keyOrContext 字段
    * @param fieldConfigKey 配置项索引键值
    * @param fieldConfig 配置的参数
    */
-  static setFieldConfig(target: any, key: string, fieldConfigKey: string, fieldConfig: any) {
-    this.setProperty(target, `${fieldConfigKey}[${key}]`, fieldConfig)
-    this.addFieldDecoratorKey(target, key, fieldConfigKey)
+  static setFieldConfig(target: any, keyOrContext: string | ClassFieldDecoratorContext, fieldConfigKey: string, fieldConfig: any) {
+    let keyStr: string
+    // 旧版实验性装饰其语法兼容
+    if (typeof keyOrContext === 'string') {
+      keyStr = keyOrContext
+    }
+    else {
+      // 新版装饰器语法
+      keyStr = keyOrContext.name.toString()
+    }
+    this.setProperty(target, `${fieldConfigKey}[${keyStr}]`, fieldConfig)
+    this.addFieldDecoratorKey(target, keyStr, fieldConfigKey)
   }
 
   /**
@@ -161,7 +170,7 @@ export class AnyDecoratorHelper {
    * @param fieldConfigKey 装饰器的配置项索引键值
    * @param keyList 指定的字段数组
    */
-  static getFieldConfigList<T>(target: any, fieldConfigKey: string, keyList: string[] = []) {
+  static getFieldConfigObject<T>(target: any, fieldConfigKey: string, keyList: string[] = []) {
     if (keyList.length === 0) {
       keyList = this.getFieldList(target, fieldConfigKey)
     }

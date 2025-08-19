@@ -8,7 +8,7 @@ import { AnyDecoratorHelper } from '../../helper/AnyDecoratorHelper'
 describe('anyDecoratorHelper', () => {
   describe('setClassConfig', () => {
     it('should set a class configuration', () => {
-      class TestClass {}
+      class TestClass { }
       AnyDecoratorHelper.setClassConfig(TestClass, 'testConfigKey', 'testValue')
       expect(Reflect.get(TestClass.prototype, 'testConfigKey')).toBe('testValue')
     })
@@ -16,19 +16,19 @@ describe('anyDecoratorHelper', () => {
 
   describe('getClassConfig', () => {
     it('should get a class configuration', () => {
-      class TestClass {}
+      class TestClass { }
       AnyDecoratorHelper.setClassConfig(TestClass, 'testConfigKey', 'testValue')
       expect(AnyDecoratorHelper.getClassConfig(new TestClass(), 'testConfigKey')).toBe('testValue')
     })
 
     it('should get a default value if not found', () => {
-      class TestClass {}
+      class TestClass { }
       expect(AnyDecoratorHelper.getClassConfig(new TestClass(), 'nonExistentKey', 'defaultValue')).toBe('defaultValue')
     })
 
     it('should merge configurations from super classes', () => {
-      class SuperTestClass {}
-      class SubTestClass extends SuperTestClass {}
+      class SuperTestClass { }
+      class SubTestClass extends SuperTestClass { }
 
       AnyDecoratorHelper.setClassConfig(SuperTestClass, 'testConfigKey', { a: 1 })
       AnyDecoratorHelper.setClassConfig(SubTestClass, 'testConfigKey', { b: 2 })
@@ -39,7 +39,7 @@ describe('anyDecoratorHelper', () => {
 
   describe('setFieldConfig', () => {
     it('should set a field configuration', () => {
-      class TestClass {}
+      class TestClass { }
       AnyDecoratorHelper.setFieldConfig(TestClass, 'testField', 'testFieldConfigKey', 'testValue')
       expect(Reflect.get(TestClass, 'testFieldConfigKey[testField]')).toBe('testValue')
     })
@@ -47,19 +47,19 @@ describe('anyDecoratorHelper', () => {
 
   describe('getFieldConfig', () => {
     it('should get a field configuration', () => {
-      class TestClass {}
+      class TestClass { }
       AnyDecoratorHelper.setFieldConfig(TestClass.prototype, 'testField', 'testFieldConfigKey', 'testValue')
       expect(AnyDecoratorHelper.getFieldConfig(new TestClass(), 'testField', 'testFieldConfigKey')).toBe('testValue')
     })
 
     it('should get a default value if not found', () => {
-      class TestClass {}
+      class TestClass { }
       expect(AnyDecoratorHelper.getFieldConfig(new TestClass(), 'nonExistentField', 'testFieldConfigKey')).toBeUndefined()
     })
 
     it('should merge configurations from super classes', () => {
-      class SuperTestClass {}
-      class SubTestClass extends SuperTestClass {}
+      class SuperTestClass { }
+      class SubTestClass extends SuperTestClass { }
 
       AnyDecoratorHelper.setFieldConfig(SuperTestClass.prototype, 'testField', 'testFieldConfigKey', { a: 1 })
       AnyDecoratorHelper.setFieldConfig(SubTestClass.prototype, 'testField', 'testFieldConfigKey', { b: 2 })
@@ -70,7 +70,7 @@ describe('anyDecoratorHelper', () => {
 
   describe('getFieldList', () => {
     it('should get a list of fields with decorators', () => {
-      class TestClass {}
+      class TestClass { }
       AnyDecoratorHelper.setFieldConfig(TestClass.prototype, 'field1', 'testFieldConfigKey', 'value1')
       AnyDecoratorHelper.setFieldConfig(TestClass.prototype, 'field2', 'testFieldConfigKey', 'value2')
 
@@ -78,8 +78,8 @@ describe('anyDecoratorHelper', () => {
     })
 
     it('should include fields from super classes', () => {
-      class SuperTestClass {}
-      class SubTestClass extends SuperTestClass {}
+      class SuperTestClass { }
+      class SubTestClass extends SuperTestClass { }
 
       AnyDecoratorHelper.setFieldConfig(SuperTestClass.prototype, 'field1', 'testFieldConfigKey', 'value1')
       AnyDecoratorHelper.setFieldConfig(SubTestClass.prototype, 'field2', 'testFieldConfigKey', 'value2')
@@ -88,28 +88,28 @@ describe('anyDecoratorHelper', () => {
     })
   })
 
-  describe('getFieldConfigList', () => {
+  describe('getFieldConfigObject', () => {
     it('should get a list of field configurations', () => {
-      class TestClass {}
+      class TestClass { }
       AnyDecoratorHelper.setFieldConfig(TestClass.prototype, 'field1', 'testFieldConfigKey', 'value1')
       AnyDecoratorHelper.setFieldConfig(TestClass.prototype, 'field2', 'testFieldConfigKey', 'value2')
 
-      const result = AnyDecoratorHelper.getFieldConfigList<string>(new TestClass(), 'testFieldConfigKey')
+      const result = AnyDecoratorHelper.getFieldConfigObject<string>(new TestClass(), 'testFieldConfigKey')
       expect(result).toEqual({ field1: 'value1', field2: 'value2' })
     })
   })
 
   describe('getFieldConfigValue', () => {
     it('should get a specific field configuration value', () => {
-      class TestClass {}
+      class TestClass { }
       AnyDecoratorHelper.setFieldConfig(TestClass.prototype, 'testField', 'testFieldConfigKey', { a: 1, b: 2 })
 
       expect(AnyDecoratorHelper.getFieldConfigValue(new TestClass(), 'testFieldConfigKey', 'testField', 'a')).toBe(1)
     })
 
     it('should get a value from super classes', () => {
-      class SuperTestClass {}
-      class SubTestClass extends SuperTestClass {}
+      class SuperTestClass { }
+      class SubTestClass extends SuperTestClass { }
 
       AnyDecoratorHelper.setFieldConfig(SuperTestClass, 'testField', 'testFieldConfigKey', { a: 1 })
       AnyDecoratorHelper.setFieldConfig(SubTestClass, 'testField', 'testFieldConfigKey', { b: 2 })

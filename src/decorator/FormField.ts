@@ -16,8 +16,13 @@ export function FormField(config?: IFormFieldConfig) {
   if (config && !config.formType) {
     config.formType = EFormItemType.INPUT
   }
-  return function (target: any, key: string) {
-    AnyDecoratorHelper.setFieldConfig(target, key, FORM_FIELD_PROPERTY_KEY, config)
+
+  // 支持新旧两种装饰器语法
+  return function (target: any, keyOrContext: string | ClassFieldDecoratorContext) {
+    if (typeof keyOrContext === 'object' && keyOrContext.kind !== 'field') {
+      throw new Error(`【${keyOrContext.name?.toString()}】FormField装饰器只能用于类的字段`)
+    }
+    AnyDecoratorHelper.setFieldConfig(target, keyOrContext, FORM_FIELD_PROPERTY_KEY, config)
   }
 }
 
@@ -39,5 +44,5 @@ export function getFormFieldList(target: any) {
  * @param fieldList 字段列表，不传时获取所有标记了``@FormField``的属性的配置
  */
 export function getFormFieldConfigObj(target: any, fieldList: string[] = []) {
-  return AnyDecoratorHelper.getFieldConfigList<IFormFieldConfig>(target, FORM_FIELD_PROPERTY_KEY, fieldList)
+  return AnyDecoratorHelper.getFieldConfigObject<IFormFieldConfig>(target, FORM_FIELD_PROPERTY_KEY, fieldList)
 }

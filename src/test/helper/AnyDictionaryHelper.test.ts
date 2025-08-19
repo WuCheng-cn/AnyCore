@@ -1,6 +1,6 @@
 import type { IDictionary } from '../../interface/IDictionary'
-import { AnyDictionaryHelper } from 'src/helper/AnyDictionaryHelper'
 import { describe, expect, it } from 'vitest'
+import { AnyDictionaryHelper } from '../../helper/AnyDictionaryHelper'
 import { AnyDictionaryArrayModel } from '../../model/AnyDictionaryArrayModel'
 import { AnyDictionaryModel } from '../../model/AnyDictionaryModel'
 
