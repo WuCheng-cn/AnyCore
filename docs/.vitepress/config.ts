@@ -3,6 +3,8 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'AnyCore',
+  // 设置基础路径，对应GitHub仓库名称
+  base: '/AnyCore/',
   description: 'AnyCore是一个提供自动化组件渲染能力的基础库，通过装饰器对entity class 的属性进行标记配置，实现与组件的自动化集成。适用于快速构建表单、表格、搜索等常见UI组件。',
   ignoreDeadLinks: true,
   themeConfig: {
