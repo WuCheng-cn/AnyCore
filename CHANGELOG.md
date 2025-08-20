@@ -1,5 +1,18 @@
 # CHANGELOG | 变更日志
 
+## [1.0.2](https://github.com/WuCheng-cn/AnyCore/compare/1.0.1...1.0.2) (2025-08-20)
+
+### 📝 Documentation | 文档变更
+
+* !1 Update README.md ([45d4dd6](https://github.com/WuCheng-cn/AnyCore/commit/45d4dd64bf7010abb48a97a3aa2686396bf95d29))
+* 更新文档配置和内容 ([91b5d94](https://github.com/WuCheng-cn/AnyCore/commit/91b5d94092e3dbbf21390e5ac908c45c7c1d90c8))
+* 添加基础路径配置以匹配GitHub仓库 ([f20cbcb](https://github.com/WuCheng-cn/AnyCore/commit/f20cbcb6ad3f664fbf5dca163ddfc999f8077017))
+
+### 🚀 Chores | 构建/工程依赖/工具
+
+* add LICENSE. ([aa3a5d1](https://github.com/WuCheng-cn/AnyCore/commit/aa3a5d179665df5697609c2f94f3dd00fcf7ffd5))
+* **docs:** 添加VitePress文档站点及初始化内容 ([3b21e37](https://github.com/WuCheng-cn/AnyCore/commit/3b21e37ba1da18da021568480e5726d6901648e4))
+
 ## 1.0.1 (2025-08-20)
 
 ### ♻️ Code Refactoring | 重构
