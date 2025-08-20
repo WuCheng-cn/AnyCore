@@ -1,17 +1,32 @@
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
+import dts from 'vite-plugin-dts'
 
 export default defineConfig({
+  plugins: [
+    // 添加dts插件来生成类型声明文件
+    dts({
+      insertTypesEntry: true,
+      // 输出类型声明文件到dist/types目录
+      outDir: resolve(__dirname, 'dist/types'),
+      // 包含src目录下的所有TypeScript文件
+      include: ['src/**/*.ts'],
+      // 排除测试文件
+      exclude: ['src/test/**/*'],
+    }),
+  ],
   build: {
+    // 清除dist目录
+    emptyOutDir: true,
     lib: {
       // 指定库的入口文件
       entry: resolve(__dirname, 'src/index.ts'),
       // 库的全局变量名（在 UMD 格式中使用）
-      name: 'MyLibrary',
+      name: 'AnyCore',
       // 输出的文件名格式
       fileName: format => `index.${format}.js`,
       // 指定输出格式，可以是 'es' | 'cjs' | 'umd' | 'iife' 的数组
-      formats: ['es'],
+      formats: ['es', 'cjs'],
     },
     // 配置 Rollup 选项
     rollupOptions: {

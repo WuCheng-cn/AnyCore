@@ -12,8 +12,6 @@
     },
     "resolveJsonModule": true,
     "strict": true,
-    "declaration": true, // 生成类型声明文件
-    "declarationDir": "./types", // 类型声明文件输出目录
     "outDir": "./dist",
     "sourceMap": true,
     "esModuleInterop": true,
