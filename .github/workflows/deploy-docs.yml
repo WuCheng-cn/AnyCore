@@ -42,20 +42,17 @@ jobs:
       - name: 设置Node.js环境
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # 使用与您本地开发相同的Node.js版本
-          cache: 'pnpm' # 如果使用npm，改为'npm'；如果使用yarn，改为'yarn'
+          node-version: '20'
           
-      # 添加pnpm安装步骤
+      # 使用npm全局安装pnpm - 这种方式更可靠
       - name: 安装pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 'latest' # 也可以指定具体版本，如'8.6.0'
-          
+        run: npm install -g pnpm
+        
       - name: 安装依赖
-        run: pnpm install # 根据您的包管理器调整
+        run: pnpm install
         
       - name: 构建文档
-        run: pnpm run docs:build # 调用package.json中定义的构建脚本
+        run: pnpm run docs:build
         
       - name: 上传构件
         uses: actions/upload-pages-artifact@v3
