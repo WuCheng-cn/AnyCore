@@ -45,6 +45,12 @@ jobs:
           node-version: '20' # 使用与您本地开发相同的Node.js版本
           cache: 'pnpm' # 如果使用npm，改为'npm'；如果使用yarn，改为'yarn'
           
+      # 添加pnpm安装步骤
+      - name: 安装pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 'latest' # 也可以指定具体版本，如'8.6.0'
+          
       - name: 安装依赖
         run: pnpm install # 根据您的包管理器调整
         
