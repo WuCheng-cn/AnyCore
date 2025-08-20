@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'AnyCore',
   description: 'AnyCore是一个提供自动化组件渲染能力的基础库，通过装饰器对entity class 的属性进行标记配置，实现与组件的自动化集成。适用于快速构建表单、表格、搜索等常见UI组件。',
+  ignoreDeadLinks: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -38,7 +39,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
+      { icon: 'github', link: 'https://github.com/WuCheng-cn/AnyCore' },
     ],
   },
 })
