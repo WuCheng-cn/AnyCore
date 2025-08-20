@@ -22,7 +22,7 @@
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
     "cz": "cz",
-    "release": "build && release-it"
+    "release": "pnpm build && release-it"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.2.1",
