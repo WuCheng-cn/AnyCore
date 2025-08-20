@@ -1,5 +1,15 @@
 # CHANGELOG | 变更日志
 
+## [1.0.3](https://github.com/WuCheng-cn/AnyCore/compare/1.0.2...1.0.3) (2025-08-20)
+
+### 📦️ Builds | 打包
+
+* 配置TypeScript声明文件和构建输出 ([3dcceba](https://github.com/WuCheng-cn/AnyCore/commit/3dcceba8c2163630325d0e953f786a17a533ca83))
+
+### 🚀 Chores | 构建/工程依赖/工具
+
+* 更新 VSCode 设置以支持文件嵌套展示 ([1cea799](https://github.com/WuCheng-cn/AnyCore/commit/1cea799050ada72641279fdd10d2a69c4f8bfc56))
+
 ## [1.0.2](https://github.com/WuCheng-cn/AnyCore/compare/1.0.1...1.0.2) (2025-08-20)
 
 ### 📝 Documentation | 文档变更
