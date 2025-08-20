@@ -14,7 +14,7 @@
   ],
   "module": "./dist/index.es.js",
   "files": [
-    "lib/**/*"
+    "dist/**/*"
   ],
   "scripts": {
     "build": "vite build",
@@ -22,7 +22,7 @@
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
     "cz": "cz",
-    "release": "release-it"
+    "release": "build && release-it"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.2.1",
