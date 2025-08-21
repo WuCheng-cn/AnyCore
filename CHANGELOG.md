@@ -1,5 +1,11 @@
 # CHANGELOG | 变更日志
 
+## [1.0.6](https://github.com/WuCheng-cn/AnyCore/compare/1.0.5...1.0.6) (2025-08-21)
+
+### ♻️ Code Refactoring | 重构
+
+* **build:** 重构项目构建配置支持多入口模块 ([b23e52f](https://github.com/WuCheng-cn/AnyCore/commit/b23e52f247d93687ab2df691eed387818c10f05b))
+
 ## [1.0.5](https://github.com/WuCheng-cn/AnyCore/compare/1.0.4...1.0.5) (2025-08-21)
 
 ### ♻️ Code Refactoring | 重构
