@@ -1,5 +1,15 @@
 # CHANGELOG | 变更日志
 
+## [1.0.5](https://github.com/WuCheng-cn/AnyCore/compare/1.0.4...1.0.5) (2025-08-21)
+
+### ♻️ Code Refactoring | 重构
+
+* **types:** 重构类构造函数类型导出方式 ([e236447](https://github.com/WuCheng-cn/AnyCore/commit/e2364479229c74a299c21bb47ac36381f7b8ec5e))
+
+### 📦️ Builds | 打包
+
+* **vite:** 修改TypeScript声明文件生成配置 ([f6fa789](https://github.com/WuCheng-cn/AnyCore/commit/f6fa7897bb8c445800ef3d4a54c335166ffe2d4f))
+
 ## [1.0.4](https://github.com/WuCheng-cn/AnyCore/compare/1.0.3...1.0.4) (2025-08-21)
 
 ### ♻️ Code Refactoring | 重构
