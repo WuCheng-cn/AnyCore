@@ -1,5 +1,7 @@
 # CHANGELOG | 变更日志
 
+## [1.0.7](https://github.com/WuCheng-cn/AnyCore/compare/1.0.6...1.0.7) (2025-08-21)
+
 ## [1.0.6](https://github.com/WuCheng-cn/AnyCore/compare/1.0.5...1.0.6) (2025-08-21)
 
 ### ♻️ Code Refactoring | 重构
