@@ -70,9 +70,9 @@ export interface IFormFieldConfig extends IFieldBaseConfig {
   trim?: boolean
 
   /**
-   * # 默认值（还没开发相关应用，传了无效）
+   * # 默认值
    */
-  defaultValue?: any
+  defaultValue?: () => any
 
   /**
    * # 选中值
@@ -111,7 +111,7 @@ export interface IFormFieldConfig extends IFieldBaseConfig {
   maxSize?: number
 
   /**
-   * # 上传文件数量限制（系统默认5个）
+   * # 上传文件数量限制
    * 适用{@link EFormItemType.UPLOAD}
    */
   maxCount?: number
@@ -139,13 +139,7 @@ export interface IFormFieldConfig extends IFieldBaseConfig {
    * # 配置选项（可动态可静态）🤪
    * - 适用{@link EFormItemType.SELECT}
    */
-  options?: (formData: any) => Promise<IDictionary[]>
-
-  /**
-   * # 可见性🤪
-   * - 需要根据formData动态判断是否显示
-   */
-  visible?: (formData: any) => Promise<boolean>
+  options?: ((formData: any) => Promise<IDictionary[]>) | IDictionary[]
 
   /**
    * # 缓存字段
@@ -153,4 +147,18 @@ export interface IFormFieldConfig extends IFieldBaseConfig {
    */
   cachefield?: string
 
+  /**
+   * # 可见性🤪
+   * - 需要根据formData动态判断是否显示
+   */
+  visible?: ((formData: any) => Promise<boolean>) | boolean
+
+  /**
+   * # 自定义渲染函数
+   * - 适用{@link EFormItemType.CUSTOM_RENDER}
+   */
+  customRender?: (params: any) => any
+
+  /** # 自定义携带的组件属性 */
+  props?: any
 }

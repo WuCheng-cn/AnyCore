@@ -6,20 +6,14 @@ export enum EFormItemType {
   INPUT,
   /** # 数字输入框 */
   INPUT_NUMBER,
-  /** # 选择器输入框 */
-  INPUT_SELECTOR,
   /** # 分段输入框 */
   INPUT_SEGMENTED,
   /** # 选择框 */
   SELECT,
   /** # 日期选择框 */
   DATE,
-  /** # 日期时间选择框 */
-  TIME,
   /** # 日期范围选择框 */
   DATE_RANGE,
-  /** # 日期时间范围选择框 */
-  TIME_RANGE,
   /** # 单选框 */
   RADIO,
   /** # 多选框 */
@@ -34,4 +28,6 @@ export enum EFormItemType {
   UPLOAD,
   /** # 签名组件 */
   SIGN,
+  /** # 自定义渲染组件 */
+  CUSTOM_RENDER,
 }
