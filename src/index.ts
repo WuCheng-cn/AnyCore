@@ -1,7 +1,17 @@
-export * as anyDecorator from './decorator/index'
-export * as anyEntity from './entity/index'
-export * as anyEnum from './enum/index'
-export * as anyHelper from './helper/index'
-export * as anyInterface from './interface/index'
-export * as anyModel from './model/index'
-export * as anyTypes from './types/index'
+import * as anyDecorator from './decorator/index'
+import * as anyEntity from './entity/index'
+import * as anyEnum from './enum/index'
+import * as anyHelper from './helper/index'
+import * as anyInterface from './interface/index'
+import * as anyModel from './model/index'
+import * as anyTypes from './types/index'
+
+export default {
+  ...anyDecorator,
+  ...anyEntity,
+  ...anyEnum,
+  ...anyHelper,
+  ...anyInterface,
+  ...anyModel,
+  ...anyTypes,
+}
