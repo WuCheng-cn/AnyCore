@@ -1,5 +1,12 @@
 # CHANGELOG | 变更日志
 
+## [1.0.4](https://github.com/WuCheng-cn/AnyCore/compare/1.0.3...1.0.4) (2025-08-21)
+
+### ♻️ Code Refactoring | 重构
+
+* 重构模块导出方式并添加新模型 ([32a3c07](https://github.com/WuCheng-cn/AnyCore/commit/32a3c0737fde554e78d17bd7b830629f3b3fbbe0))
+* **types:** 从 './ClassConstructor' 导出特定类型 ([11b8c38](https://github.com/WuCheng-cn/AnyCore/commit/11b8c38669b85c5f9bcbffc10e4c304cd9b083d4))
+
 ## [1.0.3](https://github.com/WuCheng-cn/AnyCore/compare/1.0.2...1.0.3) (2025-08-20)
 
 ### 📦️ Builds | 打包
