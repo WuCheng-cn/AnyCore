@@ -10,7 +10,7 @@ export default defineConfig({
       // 输出类型声明文件到dist/types目录
       outDir: resolve(__dirname, 'dist/types'),
       // 包含src目录下的所有TypeScript文件
-      include: ['src/**/*.ts'],
+      include: ['src/index.ts'],
       // 排除测试文件
       exclude: ['src/test/**/*'],
     }),
