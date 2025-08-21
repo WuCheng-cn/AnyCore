@@ -10,7 +10,7 @@ export default defineConfig({
       // 输出类型声明文件到dist/types目录
       outDir: resolve(__dirname, 'dist/types'),
       // 包含src目录下的所有TypeScript文件
-      include: ['src/index.ts'],
+      include: ['src/**/*.ts'],
       // 排除测试文件
       exclude: ['src/test/**/*'],
     }),
@@ -19,12 +19,21 @@ export default defineConfig({
     // 清除dist目录
     emptyOutDir: true,
     lib: {
-      // 指定库的入口文件
-      entry: resolve(__dirname, 'src/index.ts'),
+      // 指定多入口文件
+      entry: {
+        index: resolve(__dirname, 'src/index.ts'),
+        decorator: resolve(__dirname, 'src/decorator/index.ts'),
+        entity: resolve(__dirname, 'src/entity/index.ts'),
+        enum: resolve(__dirname, 'src/enum/index.ts'),
+        helper: resolve(__dirname, 'src/helper/index.ts'),
+        interface: resolve(__dirname, 'src/interface/index.ts'),
+        model: resolve(__dirname, 'src/model/index.ts'),
+        types: resolve(__dirname, 'src/types/index.ts'),
+      },
       // 库的全局变量名（在 UMD 格式中使用）
       name: 'AnyCore',
       // 输出的文件名格式
-      fileName: format => `index.${format}.js`,
+      fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'mjs' : 'cjs'}`,
       // 指定输出格式，可以是 'es' | 'cjs' | 'umd' | 'iife' 的数组
       formats: ['es', 'cjs'],
     },
@@ -37,6 +46,12 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
           react: 'React',
+        },
+        // 保留模块结构，避免模块被拆分成chunk
+        preserveModules: true,
+        // 修复路径引用问题
+        paths: {
+          '@': resolve(__dirname, 'src'),
         },
       },
     },

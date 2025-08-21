@@ -15,8 +15,90 @@
     "reflect",
     "core"
   ],
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.es.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./decorator": {
+      "import": {
+        "types": "./dist/types/decorator/index.d.ts",
+        "default": "./dist/decorator.mjs"
+      },
+      "require": {
+        "types": "./dist/types/decorator/index.d.ts",
+        "default": "./dist/decorator.cjs"
+      }
+    },
+    "./entity": {
+      "import": {
+        "types": "./dist/types/entity/index.d.ts",
+        "default": "./dist/entity.mjs"
+      },
+      "require": {
+        "types": "./dist/types/entity/index.d.ts",
+        "default": "./dist/entity.cjs"
+      }
+    },
+    "./enum": {
+      "import": {
+        "types": "./dist/types/enum/index.d.ts",
+        "default": "./dist/enum.mjs"
+      },
+      "require": {
+        "types": "./dist/types/enum/index.d.ts",
+        "default": "./dist/enum.cjs"
+      }
+    },
+    "./helper": {
+      "import": {
+        "types": "./dist/types/helper/index.d.ts",
+        "default": "./dist/helper.mjs"
+      },
+      "require": {
+        "types": "./dist/types/helper/index.d.ts",
+        "default": "./dist/helper.cjs"
+      }
+    },
+    "./interface": {
+      "import": {
+        "types": "./dist/types/interface/index.d.ts",
+        "default": "./dist/interface.mjs"
+      },
+      "require": {
+        "types": "./dist/types/interface/index.d.ts",
+        "default": "./dist/interface.cjs"
+      }
+    },
+    "./model": {
+      "import": {
+        "types": "./dist/types/model/index.d.ts",
+        "default": "./dist/model.mjs"
+      },
+      "require": {
+        "types": "./dist/types/model/index.d.ts",
+        "default": "./dist/model.cjs"
+      }
+    },
+    "./types": {
+      "import": {
+        "types": "./dist/types/types/index.d.ts",
+        "default": "./dist/types.mjs"
+      },
+      "require": {
+        "types": "./dist/types/types/index.d.ts",
+        "default": "./dist/types.cjs"
+      }
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/types/index.d.ts",
   "files": [
     "dist/**/*"
