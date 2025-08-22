@@ -1,9 +1,9 @@
 import type { AnyBaseModel } from '../model/AnyBaseModel'
-import type { ClassConstructor } from '../types/ClassConstructor'
+import type { ClassConstructor, ClassPrototype } from '../types/ClassConstructor'
 
 export interface IFormProps {
   /** # 配置实体 */
-  entity: ClassConstructor<AnyBaseModel>
+  entity: ClassPrototype<typeof AnyBaseModel>
 
   /**  # 列数 */
   cols?: number
