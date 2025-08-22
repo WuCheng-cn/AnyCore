@@ -34,7 +34,7 @@ export interface IInputSelectorConfig {
   isCacheSelect?: boolean
 
   /** # 初始化查询条件 （如需常驻条件请使用payload） */
-  initData?: InstanceType<ClassConstructor<AnyBaseModel>>
+  initData?: InstanceType<ClassConstructor<typeof AnyBaseModel>>
 
   /** # 查询时额外携带的参数 （如仅为初始化条件，请使用initData） */
   payload?: (formData: any) => Promise<Record<string, any>>

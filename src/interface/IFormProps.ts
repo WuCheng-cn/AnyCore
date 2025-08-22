@@ -1,15 +1,15 @@
 import type { AnyBaseModel } from '../model/AnyBaseModel'
-import type { ClassConstructor, ClassPrototype } from '../types/ClassConstructor'
+import type { ClassConstructor } from '../types/ClassConstructor'
 
 export interface IFormProps {
   /** # 配置实体 */
-  entity: ClassPrototype<typeof AnyBaseModel>
+  entity: ClassConstructor<typeof AnyBaseModel>
 
   /**  # 列数 */
   cols?: number
 
   /** # 初始数据  */
-  initData?: InstanceType<ClassConstructor<AnyBaseModel>>
+  initData?: InstanceType<ClassConstructor<typeof AnyBaseModel>>
 
   /** # 要展示的字段列表 */
   fieldList?: string[]
