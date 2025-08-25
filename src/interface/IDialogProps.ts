@@ -1,5 +1,5 @@
 import type { AnyBaseModel } from '../model/AnyBaseModel'
-import type { ClassConstructor } from '../types/ClassConstructor'
+import type { ClassConstructor } from '../types/TypeUtils'
 
 /**
  * # 弹窗的基础props定义接口

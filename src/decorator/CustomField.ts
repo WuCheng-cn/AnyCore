@@ -28,7 +28,7 @@ export function CustomField(name: string, dictionaryArray?: AnyDictionaryArrayMo
 
     AnyDecoratorHelper.setFieldConfig(target, keyOrContext, CUSTOM_FIELD_PROPERTY_KEY, {
       name,
-      dictionaryArray: data || [],
+      dictionaryArray: data,
     })
   }
 }

@@ -8,7 +8,6 @@ import { getTableFieldConfigObj, getTableFieldList } from '../decorator/TableFie
  * # 基础模型，包含一些通用操作
  */
 export class AnyBaseModel {
-  [key: string]: any
   /**
    * # 获取表单字段的label
    * 优先返回``@FormField``配置的label，其次返回``@CustomField``配置的值，否则返回字段key
@@ -312,9 +311,12 @@ export class AnyBaseModel {
    * # 将实例转为普通对象
    */
   toJSON() {
-    const json = {} as Record<string, any>
-    const fieldList = Object.keys(this)
+    const json = {} as Record<keyof this, any>
+    const fieldList = Object.keys(this) as (keyof this)[]
     fieldList.forEach((field) => {
+      if (typeof this[field] === 'function') {
+        return
+      }
       json[field] = this[field]
       const fieldData = this[field]
       if (Array.isArray(fieldData)) {

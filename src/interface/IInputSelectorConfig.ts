@@ -1,5 +1,5 @@
 import type { AnyBaseModel } from '../model/AnyBaseModel'
-import type { ClassConstructor } from '../types/ClassConstructor'
+import type { ClassConstructor } from '../types/TypeUtils'
 
 /**
  * # 选择器输入框 配置

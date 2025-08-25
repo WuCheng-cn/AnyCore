@@ -1,24 +1,28 @@
 import type { AnyBaseModel } from '../model/AnyBaseModel'
-import type { ClassConstructor } from '../types/ClassConstructor'
+import type { ClassFieldNames } from '@/types'
 
-export interface IFormProps {
+/**
+ * 表单属性接口，用于定义表单组件的配置参数
+ * @template T - 继承自AnyBaseModel的模型类类型
+ */
+export interface IFormProps<T extends typeof AnyBaseModel> {
   /** # 配置实体 */
-  entity: ClassConstructor<typeof AnyBaseModel>
+  entity: T
 
   /**  # 列数 */
   cols?: number
 
   /** # 初始数据  */
-  initData?: InstanceType<ClassConstructor<typeof AnyBaseModel>>
+  initData?: InstanceType<T>
 
-  /** # 要展示的字段列表 */
-  fieldList?: string[]
+  /** # 要展示的字段列表 - 只提示字段名，不包含方法名 */
+  fieldList?: (ClassFieldNames<InstanceType<T>>)[]
 
-  /** # 字段排序参考 */
-  fieldOrder?: string[]
+  /** # 字段排序参考 - 只提示字段名，不包含方法名 */
+  fieldOrder?: (ClassFieldNames<InstanceType<T>>)[]
 
   /** 额外的验证规则（会与实体的配置合并） */
-  mixinRules?: Record<string, any[]>
+  mixinRules?: Record<ClassFieldNames<InstanceType<T>>, any[]>
 
   /** # 表单label布局 */
   labelCol?: object
