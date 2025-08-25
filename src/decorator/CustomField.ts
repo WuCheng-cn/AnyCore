@@ -11,7 +11,7 @@ export const CUSTOM_FIELD_PROPERTY_KEY = 'CustomField'
  * @param name 字段名称
  * @param dictionaryArray 字典数组或者字典code(传入字典code自动调用字典接口)
  */
-export function CustomField(name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel> | (() => Promise<IDictionary[]>)): any {
+export function CustomField(name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel> | (() => Promise<IDictionary<any>[]>)): any {
   return async function (target: any, keyOrContext: string | ClassFieldDecoratorContext) {
     if (typeof keyOrContext === 'object' && keyOrContext.kind !== 'field') {
       throw new Error(`【${keyOrContext.name?.toString()}】CustomField装饰器只能用于类的字段`)

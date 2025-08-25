@@ -40,7 +40,7 @@ export abstract class AnyDataTransformHelper {
    * - data 对象数组
    * - [labelKey, valueKey]
    */
-  static recordListToOptions(data: Record<string, any>[], [labelKey, valueKey]: [string, string]): IDictionary[] {
+  static recordListToOptions(data: Record<string, any>[], [labelKey, valueKey]: [string, string]): IDictionary<any>[] {
     return data?.map((item) => {
       return {
         label: item?.[labelKey],

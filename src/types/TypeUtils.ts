@@ -1,3 +1,5 @@
+import type { IDictionary } from '@/interface'
+
 /**
  * # 类构造函数包装
  */
@@ -26,3 +28,15 @@ export type ClassFieldNames<T> = {
 export type ClassMethodNames<T> = {
   [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never
 }[keyof T]
+
+/**
+ * # 从字典数组中提取所有value的类型
+ * @description 该类型工具用于从字典数组中提取所有value的类型
+ */
+export type ValuesOfDictionaryArray<T extends readonly IDictionary<any>[]> = T[number]['value']
+
+/**
+ * # 从字典数组中提取payload的类型
+ * @description 该类型工具用于从字典数组中提取payload的类型
+ */
+export type PayloadOfDictionaryArray<T extends readonly IDictionary<any>[]> = T[number]['payload']

@@ -139,7 +139,7 @@ export interface IFormFieldConfig extends IFieldBaseConfig {
    * # 配置选项（可动态可静态）🤪
    * - 适用{@link EFormItemType.SELECT}
    */
-  options?: ((formData: any) => Promise<IDictionary[]>) | IDictionary[]
+  options?: ((formData: any) => Promise<IDictionary<any>[]>) | IDictionary<any>[]
 
   /**
    * # 缓存字段
