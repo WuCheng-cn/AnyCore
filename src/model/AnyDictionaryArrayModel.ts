@@ -1,6 +1,5 @@
 import type { IDictionary } from '../interface/IDictionary'
 import type { ClassFieldNames } from '@/types'
-import { AnyDictionaryHelper } from '@/helper'
 
 /**
  * # 字典数组模型
@@ -48,11 +47,3 @@ export class AnyDictionaryArrayModel<T extends IDictionary> extends Array<T> {
     return this.filter(item => !keyArr.includes(item.value as ClassFieldNames<this>)) as AnyDictionaryArrayModel<T>
   }
 }
-
-const dict = AnyDictionaryHelper.createDictionaryArray([
-  { label: 'label1', value: 1 },
-  { label: 'label2', value: 2 },
-  { label: 'label3', value: 3 },
-])
-
-dict.exclude([''])
