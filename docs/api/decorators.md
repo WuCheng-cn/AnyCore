@@ -51,19 +51,55 @@ console.log(config.name) // 输出: '用户信息'
 
 ## CustomField
 
-`CustomField`装饰器用于配置字段的自定义名称和字典数组。
+`CustomField`装饰器用于配置字段的自定义名称和字典数组，支持泛型类型安全。
 
 ### 用法
 
 ```typescript
 import { CustomField } from 'any-core/decorator'
+import { AnyDictionaryHelper } from 'any-core/helper'
+
+// 定义用户状态枚举
+enum UserStatus {
+  ENABLED = 1,
+  DISABLED = 0
+}
+
+// 定义角色描述接口
+interface RoleDescription {
+  desc: string
+}
+
+// 使用枚举创建字典数组
+const statusDict = AnyDictionaryHelper.createDictionaryArray([
+  { label: '启用', value: UserStatus.ENABLED },
+  { label: '禁用', value: UserStatus.DISABLED }
+])
+
+// 使用枚举创建带payload的字典数组
+const roleDict = AnyDictionaryHelper.createDictionaryArray([
+  { label: '管理员', value: 'admin', payload: { desc: '系统管理员' } as RoleDescription },
+  { label: '普通用户', value: 'user', payload: { desc: '普通访问用户' } as RoleDescription }
+])
+
+// 使用as const创建布尔类型字典数组
+const boolDict = AnyDictionaryHelper.createDictionaryArray([
+  { label: '是', value: true },
+  { label: '否', value: false }
+] as const)
 
 class User {
   @CustomField('用户名')
   username: string
 
-  @CustomField('用户状态', [{ label: '启用', value: 1 }, { label: '禁用', value: 0 }])
-  status: number
+  @CustomField<UserStatus>('用户状态', statusDict)
+  status: UserStatus
+
+  @CustomField<string, RoleDescription>('用户角色', roleDict)
+  role: string
+
+  @CustomField<boolean>('是否启用', boolDict)
+  enabled: boolean
 }
 ```
 
@@ -72,14 +108,21 @@ class User {
 | 参数名 | 类型 | 说明 | 是否必填 |
 |--------|------|------|----------|
 | `name` | `string` | 字段的自定义名称 | 是 |
-| `dictionaryArray` | `AnyDictionaryArrayModel<AnyDictionaryModel> \| (() => Promise<IDictionary[]>)` | 字典数组或获取字典数组的函数 | 否 |
+| `dictionaryArray` | `AnyDictionaryArrayModel<AnyDictionaryModel<T, P>> \| (() => Promise<IDictionary<T, P>[]>)` | 字典数组或获取字典数组的函数 | 否 |
+
+### 泛型参数
+
+| 参数名 | 类型 | 说明 |
+|--------|------|------|
+| `T` | `any` | 字典值(value)的类型 |
+| `P` | `any` | 字典附加信息(payload)的类型 |
 
 ### 相关函数
 
 #### getCustomFieldName
 
 ```typescript
-function getCustomFieldName(target: any, field: string): string
+function getCustomFieldName(target: any, field: string): string | undefined
 ```
 
 **说明**：获取字段的自定义名称。
@@ -96,12 +139,13 @@ function getCustomFieldName(target: any, field: string): string
 ```typescript
 const user = new User()
 console.log(getCustomFieldName(user, 'username')) // 输出: '用户名'
+console.log(getCustomFieldName(user, 'status')) // 输出: '用户状态'
 ```
 
 #### getCustomFieldDictionaryArray
 
 ```typescript
-function getCustomFieldDictionaryArray(target: any, field: string): AnyDictionaryArrayModel<AnyDictionaryModel>
+function getCustomFieldDictionaryArray<T = any, P = any>(target: any, field: string): AnyDictionaryArrayModel<AnyDictionaryModel<T, P>> | undefined
 ```
 
 **说明**：获取字段的字典数组。
@@ -112,6 +156,21 @@ function getCustomFieldDictionaryArray(target: any, field: string): AnyDictionar
 - `field`：字段名
 
 **返回值**：字段的字典数组，如果未配置则返回undefined
+
+**示例**：
+
+```typescript
+const user = new User()
+// 获取状态字段的字典数组
+const statusDict = getCustomFieldDictionaryArray<UserStatus>(user, 'status')
+// 类型安全地获取字典项
+const enabledStatus = statusDict?.getDictByValue(UserStatus.ENABLED)
+console.log(enabledStatus?.label) // 输出: '启用'
+
+// 获取角色字段的字典数组
+const roleDict = getCustomFieldDictionaryArray<string, RoleDescription>(user, 'role')
+const adminRole = roleDict?.getDictByValue('admin')
+console.log(adminRole?.payload?.desc) // 输出: '系统管理员'
 
 ## FormField
 
@@ -313,10 +372,10 @@ function getSearchFieldList(target: any): string[]
 
 **返回值**：字段名数组
 
-#### getSearchFiledConfigObj
+#### getSearchFieldConfigObj
 
 ```typescript
-function getSearchFiledConfigObj(target: any, fieldList: string[] = []): Record<string, ISearchFieldConfig>
+function getSearchFieldConfigObj(target: any, fieldList: string[] = []): Record<string, ISearchFieldConfig>
 ```
 
 **说明**：获取字段的搜索配置对象。

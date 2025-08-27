@@ -35,21 +35,25 @@ function getCustomClassConfig(target: any): { name?: string }
 
 ### CustomField
 
-用于配置字段的自定义名称和字典数组。
+用于配置字段的自定义名称和字典数组，支持泛型类型安全。
 
 **签名：**
 ```typescript
-function CustomField(name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel> | (() => Promise<IDictionary[]>)): PropertyDecorator
+function CustomField<T = any, P = any>(name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel<T, P>> | (() => Promise<IDictionary<T, P>[]>)): PropertyDecorator
 ```
 
 **参数：**
 - `name`：字段的自定义名称
 - `dictionaryArray`：字典数组或获取字典数组的函数
 
+**泛型参数：**
+- `T`：字典值(value)的类型
+- `P`：字典附加信息(payload)的类型
+
 **相关函数：**
 ```typescript
-function getCustomFieldName(target: any, field: string): string
-function getCustomFieldDictionaryArray(target: any, field: string): AnyDictionaryArrayModel<AnyDictionaryModel>
+function getCustomFieldName(target: any, field: string): string | undefined
+function getCustomFieldDictionaryArray<T = any, P = any>(target: any, field: string): AnyDictionaryArrayModel<AnyDictionaryModel<T, P>> | undefined
 ```
 
 ### FormField
@@ -133,13 +137,18 @@ function getTableFieldConfigObj(target: any, fieldList?: string[]): Record<strin
 
 ### AnyBaseModel
 
-基础模型类，所有实体类的基类。
+基础模型类，所有实体类的基类，提供增强的类型安全支持。
 
 **主要方法：**
-- `getFormFieldLabel(field: string)`：获取表单字段的标签
-- `getTableFieldLabel(field: string)`：获取表格字段的标签
-- `getFormFieldConfigObj()`：获取表单字段配置对象
-- `getTableFieldConfigObj()`：获取表格字段配置对象
+- `getFormFieldLabel(field: ClassFieldNames<this>)`：获取表单字段的标签，使用类型安全的字段名称
+- `getTableFieldLabel(field: ClassFieldNames<this>)`：获取表格字段的标签，使用类型安全的字段名称
+- `getSearchFieldLabel(field: ClassFieldNames<this>)`：获取搜索字段的标签，使用类型安全的字段名称
+- `getFormFieldConfigObj(...fieldList: ClassFieldNames<this>[])`：获取表单字段配置对象，支持rest参数语法
+- `getTableFieldConfigObj(...fieldList: ClassFieldNames<this>[])`：获取表格字段配置对象，支持rest参数语法
+- `getSearchFieldConfigObj(...fieldList: ClassFieldNames<this>[])`：获取搜索字段配置对象，支持rest参数语法
+- `getFormFieldList()`：获取表单字段列表，返回类型安全的字段名称数组
+- `getTableFieldList()`：获取表格字段列表，返回类型安全的字段名称数组
+- `getSearchFieldList()`：获取搜索字段列表，返回类型安全的字段名称数组
 
 ## 接口和枚举
 
@@ -194,4 +203,38 @@ function getTableFieldConfigObj(target: any, fieldList?: string[]): Record<strin
 
 ## 类型定义
 
-AnyCore提供了丰富的类型定义，用于TypeScript项目的类型检查。详细信息请参考源码中的types目录。
+AnyCore提供了丰富的类型定义，用于TypeScript项目的类型检查。
+
+### 主要类型
+
+#### ClassConstructor<T>
+
+类构造函数类型，用于表示类的构造函数。
+
+```typescript
+type ClassConstructor<T> = T extends {
+  new(...args: any[]): any
+} ? T : never
+```
+
+#### ClassFieldNames<T>
+
+获取类型T中的字段名称（排除方法），用于增强类型安全性。
+
+```typescript
+type ClassFieldNames<T> = {
+  [K in keyof T]: T[K] extends (...args: any[]) => any ? never : K
+}[keyof T]
+```
+
+#### ClassMethodNames<T>
+
+获取类型T中的方法名称（排除字段）。
+
+```typescript
+type ClassMethodNames<T> = {
+  [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never
+}[keyof T]
+```
+
+更多类型定义请参考源码中的types目录。

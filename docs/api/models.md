@@ -4,7 +4,7 @@ AnyCore框架提供了基础模型类，用于处理实体类的通用操作。�
 
 ## AnyBaseModel
 
-`AnyBaseModel`是AnyCore框架的基础模型类，所有实体类的基类。它提供了一系列通用操作方法，用于处理实体类的字段配置、标签获取等。
+`AnyBaseModel`是AnyCore框架的基础模型类，所有实体类的基类。它提供了一系列通用操作方法，用于处理实体类的字段配置、标签获取等，支持增强的类型安全性。
 
 ### 类定义
 
@@ -13,7 +13,6 @@ AnyCore框架提供了基础模型类，用于处理实体类的通用操作。�
  * # 基础模型，包含一些通用操作
  */
 export class AnyBaseModel {
-  [key: string]: any
   // 各种方法...
 }
 ```
@@ -23,13 +22,13 @@ export class AnyBaseModel {
 #### getFormFieldLabel
 
 ```typescript
-getFormFieldLabel(field: string): string
+getFormFieldLabel(field: ClassFieldNames<this>): string
 ```
 
 **说明**：获取表单字段的标签。优先返回`@FormField`配置的label，其次返回`@CustomField`配置的值，否则返回字段key。
 
 **参数**：
-- `field`：当前字段key
+- `field`：当前字段key，使用`ClassFieldNames<this>`类型确保只能传入有效的字段名称
 
 **返回值**：字段的标签文本
 
@@ -38,18 +37,20 @@ getFormFieldLabel(field: string): string
 ```typescript
 const user = new User()
 console.log(user.getFormFieldLabel('username')) // 输出: '用户名'
+// TypeScript会报错，因为'methodName'是一个方法而不是字段
+// console.log(user.getFormFieldLabel('methodName'))
 ```
 
 #### static getFormFieldLabel
 
 ```typescript
-static getFormFieldLabel(field: string): string
+static getFormFieldLabel<T extends AnyBaseModel>(this: new () => T, field: ClassFieldNames<T>): string
 ```
 
 **说明**：静态方法，获取表单字段的标签。内部调用实例方法。
 
 **参数**：
-- `field`：当前字段key
+- `field`：当前字段key，使用`ClassFieldNames<T>`类型确保只能传入有效的字段名称
 
 **返回值**：字段的标签文本
 
@@ -62,13 +63,13 @@ console.log(User.getFormFieldLabel('username')) // 输出: '用户名'
 #### getTableFieldLabel
 
 ```typescript
-getTableFieldLabel(field: string): string
+getTableFieldLabel(field: ClassFieldNames<this>): string
 ```
 
 **说明**：获取表格字段的标签。优先返回`@TableField`配置的label，其次返回`@CustomField`配置的值，否则返回字段key。
 
 **参数**：
-- `field`：当前字段key
+- `field`：当前字段key，使用`ClassFieldNames<this>`类型确保只能传入有效的字段名称
 
 **返回值**：字段的标签文本
 
@@ -82,13 +83,13 @@ console.log(user.getTableFieldLabel('username')) // 输出: '用户名'
 #### static getTableFieldLabel
 
 ```typescript
-static getTableFieldLabel(field: string): string
+static getTableFieldLabel<T extends AnyBaseModel>(this: new () => T, field: ClassFieldNames<T>): string
 ```
 
 **说明**：静态方法，获取表格字段的标签。内部调用实例方法。
 
 **参数**：
-- `field`：当前字段key
+- `field`：当前字段key，使用`ClassFieldNames<T>`类型确保只能传入有效的字段名称
 
 **返回值**：字段的标签文本
 
@@ -101,13 +102,14 @@ console.log(User.getTableFieldLabel('username')) // 输出: '用户名'
 #### getFormFieldConfigObj
 
 ```typescript
-getFormFieldConfigObj(fieldList: string[] = []): Record<string, IFormFieldConfig>
+getFormFieldConfigObj(...fieldList: ClassFieldNames<this>[]): Record<ClassFieldNames<this>, IFormFieldConfig>
 ```
 
 **说明**：获取表单字段配置对象。
 
 **参数**：
 - `fieldList`：可选，字段列表，不传时获取所有标记了`@FormField`的属性的配置
+- 支持rest参数语法，传入类型安全的字段名称
 
 **返回值**：字段配置对象，键为字段名，值为配置对象
 
@@ -115,20 +117,25 @@ getFormFieldConfigObj(fieldList: string[] = []): Record<string, IFormFieldConfig
 
 ```typescript
 const user = new User()
+// 获取所有表单字段配置
 const formConfig = user.getFormFieldConfigObj()
 console.log(formConfig.username) // 输出: { formType: 'INPUT', label: '用户名', ... }
+
+// 获取特定表单字段配置
+const partialConfig = user.getFormFieldConfigObj('username', 'role')
 ```
 
 #### getTableFieldConfigObj
 
 ```typescript
-getTableFieldConfigObj(fieldList: string[] = []): Record<string, ITableFieldConfig>
+getTableFieldConfigObj(...fieldList: ClassFieldNames<this>[]): Record<ClassFieldNames<this>, ITableFieldConfig>
 ```
 
 **说明**：获取表格字段配置对象。
 
 **参数**：
 - `fieldList`：可选，字段列表，不传时获取所有标记了`@TableField`的属性的配置
+- 支持rest参数语法，传入类型安全的字段名称
 
 **返回值**：字段配置对象，键为字段名，值为配置对象
 
@@ -143,25 +150,59 @@ console.log(tableConfig.username) // 输出: { label: '用户名', width: 120, .
 #### getSearchFieldConfigObj
 
 ```typescript
-getSearchFieldConfigObj(fieldList: string[] = []): Record<string, ISearchFieldConfig>
+getSearchFieldConfigObj(...fieldList: ClassFieldNames<this>[]): Record<ClassFieldNames<this>, ISearchFieldConfig>
 ```
 
 **说明**：获取搜索字段配置对象。
 
 **参数**：
 - `fieldList`：可选，字段列表，不传时获取所有标记了`@SearchField`的属性的配置
+- 支持rest参数语法，传入类型安全的字段名称
 
 **返回值**：字段配置对象，键为字段名，值为配置对象
+
+#### getSearchFieldLabel
+
+```typescript
+getSearchFieldLabel(field: ClassFieldNames<this>): string
+```
+
+**说明**：获取搜索字段的标签。优先返回`@SearchField`配置的label，其次返回`@CustomField`配置的值，否则返回字段key。
+
+**参数**：
+- `field`：当前字段key，使用`ClassFieldNames<this>`类型确保只能传入有效的字段名称
+
+**返回值**：字段的标签文本
+
+**示例**：
+
+```typescript
+const user = new User()
+console.log(user.getSearchFieldLabel('username')) // 输出: '用户名'
+```
+
+#### static getSearchFieldLabel
+
+```typescript
+static getSearchFieldLabel<T extends AnyBaseModel>(this: new () => T, field: ClassFieldNames<T>): string
+```
+
+**说明**：静态方法，获取搜索字段的标签。内部调用实例方法。
+
+**参数**：
+- `field`：当前字段key，使用`ClassFieldNames<T>`类型确保只能传入有效的字段名称
+
+**返回值**：字段的标签文本
 
 #### getFormFieldList
 
 ```typescript
-getFormFieldList(): string[]
+getFormFieldList(): ClassFieldNames<this>[]
 ```
 
 **说明**：获取表单字段列表。
 
-**返回值**：字段名数组
+**返回值**：字段名数组，使用`ClassFieldNames<this>`类型确保类型安全
 
 **示例**：
 
@@ -174,12 +215,12 @@ console.log(fields) // 输出: ['username', 'password', 'role', ...]
 #### getTableFieldList
 
 ```typescript
-getTableFieldList(): string[]
+getTableFieldList(): ClassFieldNames<this>[]
 ```
 
 **说明**：获取表格字段列表。
 
-**返回值**：字段名数组
+**返回值**：字段名数组，使用`ClassFieldNames<this>`类型确保类型安全
 
 **示例**：
 
@@ -192,12 +233,12 @@ console.log(fields) // 输出: ['username', 'role', 'createTime', ...]
 #### getSearchFieldList
 
 ```typescript
-getSearchFieldList(): string[]
+getSearchFieldList(): ClassFieldNames<this>[]
 ```
 
 **说明**：获取搜索字段列表。
 
-**返回值**：字段名数组
+**返回值**：字段名数组，使用`ClassFieldNames<this>`类型确保类型安全
 
 ## 使用示例
 
@@ -205,7 +246,7 @@ getSearchFieldList(): string[]
 
 ```typescript
 import { AnyBaseModel } from 'any-core'
-import { FormField, TableField, CustomField } from 'any-core/decorator'
+import { CustomField, FormField, TableField } from 'any-core/decorator'
 import { EFormItemType } from 'any-core/enum'
 
 // 定义实体类
@@ -267,11 +308,11 @@ class CustomModel extends AnyBaseModel {
     // 自定义JSON序列化逻辑
     const result: Record<string, any> = {}
     const formFields = this.getFormFieldList()
-    
+
     for (const field of formFields) {
       result[field] = this[field]
     }
-    
+
     return result
   }
 
@@ -279,14 +320,14 @@ class CustomModel extends AnyBaseModel {
   validate(): boolean {
     // 自定义验证逻辑
     const formConfig = this.getFormFieldConfigObj()
-    
+
     for (const [field, config] of Object.entries(formConfig)) {
       if (config.required && !this[field]) {
         console.error(`字段${field}是必填的`)
         return false
       }
     }
-    
+
     return true
   }
 }
