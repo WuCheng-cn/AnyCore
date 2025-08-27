@@ -207,7 +207,7 @@ AnyCore提供了丰富的类型定义，用于TypeScript项目的类型检查。
 
 ### 主要类型
 
-#### ClassConstructor<T>
+#### ClassConstructor\<T\>
 
 类构造函数类型，用于表示类的构造函数。
 
@@ -217,7 +217,7 @@ type ClassConstructor<T> = T extends {
 } ? T : never
 ```
 
-#### ClassFieldNames<T>
+#### ClassFieldNames\<T\>
 
 获取类型T中的字段名称（排除方法），用于增强类型安全性。
 
@@ -227,7 +227,7 @@ type ClassFieldNames<T> = {
 }[keyof T]
 ```
 
-#### ClassMethodNames<T>
+#### ClassMethodNames\<T\>
 
 获取类型T中的方法名称（排除字段）。
 
