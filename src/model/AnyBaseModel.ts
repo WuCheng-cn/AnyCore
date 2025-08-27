@@ -193,8 +193,9 @@ export class AnyBaseModel {
   /**
    * # 获取字段option配置选项（适用antd select、radio、checkbox等）
    * @param field
+   * @returns 包含label和value的选项数组
    */
-  getOptions<K extends ClassFieldNames<this>>(field: K) {
+  getOptions<K extends ClassFieldNames<this>>(field: K): Array<{ label: any, value: any }> {
     return this.getFieldDictionaryArray(field)?.map((item) => {
       return {
         label: item.label,
