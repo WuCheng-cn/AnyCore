@@ -1,5 +1,24 @@
 # CHANGELOG | 变更日志
 
+## [1.0.9](https://github.com/WuCheng-cn/AnyCore/compare/1.0.7...1.0.9) (2025-08-27)
+
+### ♻️ Code Refactoring | 重构
+
+* 移除测试文件及无用代码 ([e664cb2](https://github.com/WuCheng-cn/AnyCore/commit/e664cb2a46f377cf7bba3556fc4f6a7b23240c45))
+* **dictionary:** 重构字典接口和模型以支持泛型 ([d8cb694](https://github.com/WuCheng-cn/AnyCore/commit/d8cb6943ae88522a12447f759f1dd5b193659459))
+* **model:** 增强AnyBaseModel类型安全，添加测试文件 ([aba36ef](https://github.com/WuCheng-cn/AnyCore/commit/aba36ef4f839c4aaad57c1174e4987cb5b7d3554))
+* **types:** 重构类型定义并优化模型类型安全 ([43d9f56](https://github.com/WuCheng-cn/AnyCore/commit/43d9f56d3949cf27b196e30c87f719603317d1dd))
+
+### 📝 Documentation | 文档变更
+
+* 更新文档以反映类型安全特性 ([dc07d4d](https://github.com/WuCheng-cn/AnyCore/commit/dc07d4d72aaf307453a6de46f1b0178a23c0eafd))
+* **model:** 为getOptions方法添加返回类型注释 ([89e79be](https://github.com/WuCheng-cn/AnyCore/commit/89e79beb554fdead9870164e1b6a1e249f678530))
+* **project:** 添加项目规则文档说明 ([911605a](https://github.com/WuCheng-cn/AnyCore/commit/911605a66d9859c01507c601dceb6371ce7e48b2))
+
+### 🚀 Chores | 构建/工程依赖/工具
+
+* 更新版本号至1.0.8 ([b926f01](https://github.com/WuCheng-cn/AnyCore/commit/b926f016ec9535af006b32c39d5f8ebd906ee810))
+
 ## [1.0.7](https://github.com/WuCheng-cn/AnyCore/compare/1.0.6...1.0.7) (2025-08-21)
 
 ## [1.0.6](https://github.com/WuCheng-cn/AnyCore/compare/1.0.5...1.0.6) (2025-08-21)
