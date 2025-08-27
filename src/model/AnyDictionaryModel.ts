@@ -1,7 +1,7 @@
 import type { IDictionary } from '../interface/IDictionary'
 
-export class AnyDictionaryModel implements IDictionary {
-  value!: string | number | symbol | boolean
+export class AnyDictionaryModel<T = any, P = any> implements IDictionary<T, P> {
+  value!: T
   label!: any
-  [key: string]: any
+  payload?: P
 }

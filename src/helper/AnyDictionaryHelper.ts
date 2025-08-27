@@ -5,7 +5,7 @@ import { AnyDictionaryModel } from '../model/AnyDictionaryModel'
 /**
  * # 字典助手类
  */
-export class AnyDictionaryHelper {
+export abstract class AnyDictionaryHelper {
   /**
    * # 根据传入数据创建字典
    * @param data
@@ -15,12 +15,11 @@ export class AnyDictionaryHelper {
    * const dictionary = AnyDictionaryHelper.createDictionary(data);
    * ```
    */
-  static #createDictionary(data: IDictionary) {
-    const dictionary = new AnyDictionaryModel()
-    const keys = Object.keys(data)
-    for (const key of keys) {
-      dictionary[key] = data[key]
-    }
+  private static createDictionary<T, P>(data: IDictionary<T, P>) {
+    const dictionary = new AnyDictionaryModel<T, P>()
+    dictionary.value = data.value
+    dictionary.label = data.label
+    dictionary.payload = data.payload
     return dictionary
   }
 
@@ -33,10 +32,10 @@ export class AnyDictionaryHelper {
    * const dictionaryArray = AnyDictionaryHelper.createDictionaryArray(data);
    * ```
    */
-  static createDictionaryArray(data: IDictionary[]): AnyDictionaryArrayModel<AnyDictionaryModel> {
-    const dictionaryArray = new AnyDictionaryArrayModel<AnyDictionaryModel>()
+  static createDictionaryArray<T, P>(data: IDictionary<T, P>[]): AnyDictionaryArrayModel<AnyDictionaryModel<T, P>> {
+    const dictionaryArray = new AnyDictionaryArrayModel<AnyDictionaryModel<T, P>>()
     for (const item of data) {
-      dictionaryArray.push(this.#createDictionary(item))
+      dictionaryArray.push(this.createDictionary(item))
     }
     return dictionaryArray
   }

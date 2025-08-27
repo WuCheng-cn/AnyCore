@@ -3,8 +3,8 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "*.ts": "$(capture).test.ts, $(capture).test.tsx",
-    "*.tsx": "$(capture).test.ts, $(capture).test.tsx",
+    "*.ts": "$(capture).test.ts,$(capture).test-d.ts",
+    "*.tsx": "$(capture).test.ts,$(capture).test-d.ts",
     "*.env": "$(capture).env.*",
     "CHANGELOG.md": "CHANGELOG*",
     "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,LICENSE,.gitattributes,.gitignore,.gitpod.yml,CNAME,.npmrc,.browserslistrc,.release-it.*",

@@ -1,5 +1,4 @@
 import type { IDictionary } from '../interface/IDictionary'
-import type { ClassFieldNames } from '@/types'
 
 /**
  * # 字典数组模型
@@ -15,7 +14,7 @@ export class AnyDictionaryArrayModel<T extends IDictionary> extends Array<T> {
    * const label = dictionaryArray.getLabelByValue(key);
    * ```
    */
-  getLabelByValue(key: string | number | symbol | boolean) {
+  getLabelByValue(key: T['value']) {
     const dictionary = this.find(item => item.value === key)
     return dictionary?.label
   }
@@ -29,21 +28,21 @@ export class AnyDictionaryArrayModel<T extends IDictionary> extends Array<T> {
    * const dictionary = dictionaryArray.getDictByValue(key);
    * ```
    */
-  getDictByValue(key: string | number | symbol | boolean) {
+  getDictByValue(key: T['value']) {
     return this.find(item => item.value === key)
   }
 
   /**
    * # 根据传入字典的键数组获取字典数组
    */
-  expose(keyArr: ClassFieldNames<this>[]) {
-    return this.filter(item => keyArr.includes(item.value as ClassFieldNames<this>)) as AnyDictionaryArrayModel<T>
+  expose(keyArr: T['value'][]) {
+    return this.filter(item => keyArr.includes(item.value)) as AnyDictionaryArrayModel<T>
   }
 
   /**
    * # 根据传入字典的键数组获取排除后的字典数组
    */
-  exclude(keyArr: ClassFieldNames<this>[]) {
-    return this.filter(item => !keyArr.includes(item.value as ClassFieldNames<this>)) as AnyDictionaryArrayModel<T>
+  exclude(keyArr: T['value'][]) {
+    return this.filter(item => !keyArr.includes(item.value)) as AnyDictionaryArrayModel<T>
   }
 }
