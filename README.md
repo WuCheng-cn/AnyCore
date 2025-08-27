@@ -144,7 +144,7 @@ const orderNoLabel = order.getTableFieldLabel('orderNo')
 
 ## 文档
 
-详细文档请查看 [项目文档](https://your-documentation-url.com)。
+详细文档请查看 [项目文档](https://wucheng-cn.github.io/AnyCore/)。
 
 ## 贡献
 

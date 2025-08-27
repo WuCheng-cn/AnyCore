@@ -144,7 +144,7 @@ const orderNoLabel = order.getTableFieldLabel('orderNo')
 
 ## Documentation
 
-Please refer to the [Project Documentation](https://your-documentation-url.com) for detailed information.
+Please refer to the [Project Documentation](https://wucheng-cn.github.io/AnyCore/) for detailed information.
 
 ## Contributions
 
