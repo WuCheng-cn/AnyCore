@@ -1,3 +1,4 @@
+import type { ClassFieldNames } from '@/types'
 import { getCustomClassConfig } from '../decorator/CustomClass'
 import { getCustomFieldDictionaryArray, getCustomFieldName } from '../decorator/CustomField'
 import { getFormFieldConfigObj, getFormFieldList } from '../decorator/FormField'
@@ -13,9 +14,10 @@ export class AnyBaseModel {
    * 优先返回``@FormField``配置的label，其次返回``@CustomField``配置的值，否则返回字段key
    * @param field 当前字段key
    */
-  getFormFieldLabel(field: string) {
-    const formFiledConfig = this.getFormFieldConfigObj()[field]
-    return formFiledConfig?.label || getCustomFieldName(this, field) || field
+  getFormFieldLabel(field: ClassFieldNames<this>) {
+    const fieldStr = field as string
+    const formFiledConfig = this.getFormFieldConfigObj()[fieldStr]
+    return formFiledConfig?.label || getCustomFieldName(this, fieldStr) || fieldStr
   }
 
   /**
@@ -24,7 +26,7 @@ export class AnyBaseModel {
    * @param field 当前字段key
    * @returns 静态方法调用，返回实例方法调用
    */
-  static getFormFieldLabel(field: string) {
+  static getFormFieldLabel<T extends AnyBaseModel>(this: new () => T, field: ClassFieldNames<T>) {
     return new this().getFormFieldLabel(field)
   }
 
@@ -33,9 +35,10 @@ export class AnyBaseModel {
    * 优先返回``@TableField``配置的label，其次返回``@CustomField``配置的值，否则返回字段key
    * @param field 当前字段key
    */
-  getTableFieldLabel(field: string) {
-    const tableFieldConfig = this.getTableFieldConfigObj()[field]
-    return tableFieldConfig?.label || getCustomFieldName(this, field) || field
+  getTableFieldLabel(field: ClassFieldNames<this>) {
+    const fieldStr = field as string
+    const tableFieldConfig = this.getTableFieldConfigObj()[fieldStr]
+    return tableFieldConfig?.label || getCustomFieldName(this, fieldStr) || fieldStr
   }
 
   /**
@@ -44,7 +47,7 @@ export class AnyBaseModel {
    * @param field 当前字段key
    * @returns 静态方法调用，返回实例方法调用
    */
-  static getTableFieldLabel(field: string) {
+  static getTableFieldLabel<T extends AnyBaseModel>(this: new () => T, field: ClassFieldNames<T>) {
     return new this().getTableFieldLabel(field)
   }
 
@@ -53,9 +56,10 @@ export class AnyBaseModel {
    * 优先返回``@SearchField``配置的label，其次返回``@CustomField``配置的值，否则返回字段key
    * @param field 当前字段key
    */
-  getSearchFieldLabel(field: string) {
-    const searchFieldConfig = this.getSearchFiledConfigObj()[field]
-    return searchFieldConfig?.label || getCustomFieldName(this, field) || field
+  getSearchFieldLabel(field: ClassFieldNames<this>) {
+    const fieldStr = field as string
+    const searchFieldConfig = this.getSearchFiledConfigObj()[fieldStr]
+    return searchFieldConfig?.label || getCustomFieldName(this, fieldStr) || fieldStr
   }
 
   /**
@@ -64,7 +68,7 @@ export class AnyBaseModel {
    * @param field 当前字段key
    * @returns 静态方法调用，返回实例方法调用
    */
-  static getSearchFieldLabel(field: string) {
+  static getSearchFieldLabel<T extends AnyBaseModel>(this: new () => T, field: ClassFieldNames<T>) {
     return new this().getSearchFieldLabel(field)
   }
 
@@ -88,8 +92,8 @@ export class AnyBaseModel {
    * 不传入字段列表，则获取所有标记了``@TableField``的属性的配置
    * @param fieldList 字段列表
    */
-  getTableFieldConfigObj(...fieldList: string[]) {
-    return getTableFieldConfigObj(this, fieldList)
+  getTableFieldConfigObj(...fieldList: ClassFieldNames<this>[]) {
+    return getTableFieldConfigObj(this, fieldList as string[])
   }
 
   /**
@@ -97,7 +101,7 @@ export class AnyBaseModel {
    * @param fieldList 字段列表
    * @returns 静态方法调用，返回实例方法调用
    */
-  static getTableFieldConfigObj(...fieldList: string[]) {
+  static getTableFieldConfigObj<T extends AnyBaseModel>(this: new () => T, ...fieldList: ClassFieldNames<T>[]) {
     return new this().getTableFieldConfigObj(...fieldList)
   }
 
@@ -121,8 +125,8 @@ export class AnyBaseModel {
    * 不传入字段列表，则获取所有标记了``@SearchField``的属性的配置
    * @param fieldList 字段列表
    */
-  getSearchFiledConfigObj(...fieldList: string[]) {
-    return getSearchFiledConfigObj(this, fieldList)
+  getSearchFiledConfigObj(...fieldList: ClassFieldNames<this>[]) {
+    return getSearchFiledConfigObj(this, fieldList as string[])
   }
 
   /**
@@ -130,7 +134,7 @@ export class AnyBaseModel {
    * @param fieldList 字段列表
    * @returns 静态方法调用，返回实例方法调用
    */
-  static getSearchFiledConfigObj(...fieldList: string[]) {
+  static getSearchFiledConfigObj<T extends AnyBaseModel>(this: new () => T, ...fieldList: ClassFieldNames<T>[]) {
     return new this().getSearchFiledConfigObj(...fieldList)
   }
 
@@ -154,8 +158,8 @@ export class AnyBaseModel {
    * 不传入字段列表，则获取所有标记了``@FormField``的属性的配置
    * @param fieldList 字段列表
    */
-  getFormFieldConfigObj(...fieldList: string[]) {
-    return getFormFieldConfigObj(this, fieldList)
+  getFormFieldConfigObj(...fieldList: ClassFieldNames<this>[]) {
+    return getFormFieldConfigObj(this, fieldList as string[])
   }
 
   /**
@@ -163,7 +167,7 @@ export class AnyBaseModel {
    * @param fieldList 字段列表
    * @returns 静态方法调用，返回实例方法调用
    */
-  static getFormFieldConfigObj(...fieldList: string[]) {
+  static getFormFieldConfigObj<T extends AnyBaseModel>(this: new () => T, ...fieldList: ClassFieldNames<T>[]) {
     return new this().getFormFieldConfigObj(...fieldList)
   }
 
@@ -171,8 +175,8 @@ export class AnyBaseModel {
    * # 获取字段自定义字典数组
    * @param field 字段
    */
-  getFieldDictionaryArray(field: string) {
-    return getCustomFieldDictionaryArray(this, field)
+  getFieldDictionaryArray(field: ClassFieldNames<this>) {
+    return getCustomFieldDictionaryArray(this, field as string)
   }
 
   /**
@@ -180,7 +184,7 @@ export class AnyBaseModel {
    * @param field 字段
    * @returns 静态方法调用，返回实例方法调用
    */
-  static getFieldDictionaryArray(field: string) {
+  static getFieldDictionaryArray<T extends AnyBaseModel>(this: new () => T, field: ClassFieldNames<T>) {
     return new this().getFieldDictionaryArray(field)
   }
 
@@ -188,7 +192,7 @@ export class AnyBaseModel {
    * # 获取字段option配置选项（适用antd select、radio、checkbox等）
    * @param field
    */
-  getOptions(field: string) {
+  getOptions(field: ClassFieldNames<this>) {
     return this.getFieldDictionaryArray(field)?.map((item) => {
       return {
         label: item.label,
@@ -202,7 +206,7 @@ export class AnyBaseModel {
    * @param field
    * @returns 静态方法调用，返回实例方法调用
    */
-  static getOptions(field: string) {
+  static getOptions<T extends AnyBaseModel>(this: new () => T, field: ClassFieldNames<T>) {
     return new this().getOptions(field)
   }
 
