@@ -1,3 +1,5 @@
+import type { AnyDictionaryArrayModel } from './AnyDictionaryArrayModel'
+import type { AnyDictionaryModel } from './AnyDictionaryModel'
 import type { ClassFieldNames } from '@/types'
 import { getCustomClassConfig } from '../decorator/CustomClass'
 import { getCustomFieldDictionaryArray, getCustomFieldName } from '../decorator/CustomField'
@@ -175,8 +177,8 @@ export class AnyBaseModel {
    * # 获取字段自定义字典数组
    * @param field 字段
    */
-  getFieldDictionaryArray(field: ClassFieldNames<this>) {
-    return getCustomFieldDictionaryArray(this, field as string)
+  getFieldDictionaryArray<T extends this[K], K extends ClassFieldNames<this>, P = undefined>(field: K): AnyDictionaryArrayModel<AnyDictionaryModel<T, P>> | undefined {
+    return getCustomFieldDictionaryArray<T, P>(this, field as string)
   }
 
   /**
@@ -184,7 +186,7 @@ export class AnyBaseModel {
    * @param field 字段
    * @returns 静态方法调用，返回实例方法调用
    */
-  static getFieldDictionaryArray<T extends AnyBaseModel>(this: new () => T, field: ClassFieldNames<T>) {
+  static getFieldDictionaryArray<T extends AnyBaseModel, V extends InstanceType<typeof this>[K], K extends ClassFieldNames<InstanceType<typeof this>>, P = undefined>(this: new () => T, field: K): AnyDictionaryArrayModel<AnyDictionaryModel<V, P>> | undefined {
     return new this().getFieldDictionaryArray(field)
   }
 
@@ -192,7 +194,7 @@ export class AnyBaseModel {
    * # 获取字段option配置选项（适用antd select、radio、checkbox等）
    * @param field
    */
-  getOptions(field: ClassFieldNames<this>) {
+  getOptions<K extends ClassFieldNames<this>>(field: K) {
     return this.getFieldDictionaryArray(field)?.map((item) => {
       return {
         label: item.label,
@@ -206,7 +208,7 @@ export class AnyBaseModel {
    * @param field
    * @returns 静态方法调用，返回实例方法调用
    */
-  static getOptions<T extends AnyBaseModel>(this: new () => T, field: ClassFieldNames<T>) {
+  static getOptions<T extends AnyBaseModel, K extends ClassFieldNames<InstanceType<typeof this>>>(this: new () => T, field: K) {
     return new this().getOptions(field)
   }
 

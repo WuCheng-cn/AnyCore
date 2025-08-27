@@ -11,19 +11,19 @@ export const CUSTOM_FIELD_PROPERTY_KEY = 'CustomField'
  * @param name 字段名称
  * @param dictionaryArray 字典数组或者字典code(传入字典code自动调用字典接口)
  */
-export function CustomField(name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel> | (() => Promise<IDictionary[]>)): any {
+export function CustomField<T, P = any>(name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel<T, P>> | (() => Promise<IDictionary[]>)): any {
   return async function (target: any, keyOrContext: string | ClassFieldDecoratorContext) {
     if (typeof keyOrContext === 'object' && keyOrContext.kind !== 'field') {
       throw new Error(`【${keyOrContext.name?.toString()}】CustomField装饰器只能用于类的字段`)
     }
 
-    let data: AnyDictionaryArrayModel<AnyDictionaryModel> | undefined
+    let data: AnyDictionaryArrayModel<AnyDictionaryModel<T, P>> | undefined
     if (typeof dictionaryArray === 'function') {
       const res = await dictionaryArray()
       data = AnyDictionaryHelper.createDictionaryArray(res)
     }
     else {
-      data = dictionaryArray
+      data = dictionaryArray as AnyDictionaryArrayModel<AnyDictionaryModel<T, P>>
     }
 
     AnyDecoratorHelper.setFieldConfig(target, keyOrContext, CUSTOM_FIELD_PROPERTY_KEY, {
@@ -47,6 +47,6 @@ export function getCustomFieldName(target: any, field: string) {
  * @param target
  * @param field
  */
-export function getCustomFieldDictionaryArray(target: any, field: string) {
-  return AnyDecoratorHelper.getFieldConfigObject<{ name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel> }>(target, CUSTOM_FIELD_PROPERTY_KEY, [field])?.[field]?.dictionaryArray
+export function getCustomFieldDictionaryArray<T, P>(target: any, field: string): AnyDictionaryArrayModel<AnyDictionaryModel<T, P>> | undefined {
+  return AnyDecoratorHelper.getFieldConfigObject<{ name: string, dictionaryArray?: AnyDictionaryArrayModel<AnyDictionaryModel<T, P>> }>(target, CUSTOM_FIELD_PROPERTY_KEY, [field])?.[field]?.dictionaryArray
 }
