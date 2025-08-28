@@ -144,15 +144,15 @@ export class AnyBaseModel {
    * # 获取表单字段列表
    */
   getFormFieldList() {
-    return getFormFieldList(this)
+    return getFormFieldList(this) as ClassFieldNames<this>[]
   }
 
   /**
    * # 获取表单字段列表
    * @returns 静态方法调用，返回实例方法调用
    */
-  static getFormFieldList() {
-    return new this().getFormFieldList()
+  static getFormFieldList<T extends AnyBaseModel>(this: new () => T) {
+    return new this().getFormFieldList() as ClassFieldNames<T>[]
   }
 
   /**

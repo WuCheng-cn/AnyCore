@@ -1,4 +1,6 @@
+import type { ClassFieldNames } from '@/types'
 import { log } from 'node:console'
+import { expectTypeOf } from 'vitest'
 import { AnyDataBaseEntity } from '../entity'
 import { FormField } from './FormField'
 
@@ -11,6 +13,12 @@ const instance = new TestClass()
 
 const a = TestClass.getFormFieldConfigObj('testField')
 const b = instance.getFormFieldConfigObj('testField')
+
+const aList = TestClass.getFormFieldList()
+const bList = instance.getFormFieldList()
+
+expectTypeOf(aList).toEqualTypeOf<ClassFieldNames<TestClass>[]>()
+expectTypeOf(bList).toEqualTypeOf<ClassFieldNames<TestClass>[]>()
 
 // @ts-expect-error a上不存在unexitField
 log(a.unexitField)
