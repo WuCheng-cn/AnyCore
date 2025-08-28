@@ -1,5 +1,22 @@
 # CHANGELOG | 变更日志
 
+## [1.0.10](https://github.com/WuCheng-cn/AnyCore/compare/1.0.9...1.0.10) (2025-08-28)
+
+### ♻️ Code Refactoring | 重构
+
+* **decorator:** 优化装饰器类型定义和类型安全 ([425ac68](https://github.com/WuCheng-cn/AnyCore/commit/425ac684c7c6088de295a7a3317ac6e5f0f62c2b))
+* **model:** 优化getFormFieldList方法的类型定义 ([3b5a509](https://github.com/WuCheng-cn/AnyCore/commit/3b5a509424673bbe69271a8f4d68f3ecef9dceb3))
+
+### 🐛 Bug Fixes | 修复 bug
+
+* 修正SearchField相关函数命名拼写错误并添加类型测试 ([b330a4b](https://github.com/WuCheng-cn/AnyCore/commit/b330a4b92c6cf9cd5e8b822335b47b76d21e547e))
+* **model:** 修正getTableFieldList方法的类型定义 ([3e6308b](https://github.com/WuCheng-cn/AnyCore/commit/3e6308b0812a0772dc6bee275b2b9662f090baaf))
+
+### 📝 Documentation | 文档变更
+
+* 更新项目文档链接为正确的URL ([00fef88](https://github.com/WuCheng-cn/AnyCore/commit/00fef8819fc9beef09ace9ee8562cc951b1b5d50))
+* **api:** 修正类型定义文档中的转义符号格式 ([e185556](https://github.com/WuCheng-cn/AnyCore/commit/e185556c02ae26df6a9c5d1e07315cab1237e30f))
+
 ## [1.0.9](https://github.com/WuCheng-cn/AnyCore/compare/1.0.7...1.0.9) (2025-08-27)
 
 ### ♻️ Code Refactoring | 重构
