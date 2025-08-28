@@ -149,14 +149,14 @@ export class AnyDecoratorHelper {
       const fieldListRaw = Reflect.get(target, fieldConfigKey)
       const fieldList = Array.isArray(fieldListRaw) ? fieldListRaw : []
 
-      const uniqueFieldSet = new Set([...new Set(list), ...fieldList.filter(item => !list.includes(item))])
+      const uniqueFieldSet = new Set([...Array.from(new Set(list)), ...fieldList.filter(item => !list.includes(item))])
 
       const superClass = Reflect.getPrototypeOf(target)
       if (superClass && !(superClass instanceof AnyBaseModel)) {
-        return this.getFieldList(superClass, fieldConfigKey, [...uniqueFieldSet])
+        return this.getFieldList(superClass, fieldConfigKey, Array.from(uniqueFieldSet))
       }
 
-      return [...uniqueFieldSet]
+      return Array.from(uniqueFieldSet)
     }
     catch (error) {
       console.error('Error in getFieldList:', error)
@@ -170,15 +170,15 @@ export class AnyDecoratorHelper {
    * @param fieldConfigKey 装饰器的配置项索引键值
    * @param keyList 指定的字段数组
    */
-  static getFieldConfigObject<T>(target: any, fieldConfigKey: string, keyList: string[] = []) {
+  static getFieldConfigObject<T, K extends string = string>(target: any, fieldConfigKey: string, keyList: K[] = []): Record<K, T> {
     if (keyList.length === 0) {
-      keyList = this.getFieldList(target, fieldConfigKey)
+      keyList = this.getFieldList(target, fieldConfigKey) as K[]
     }
-    const result: { [key: string]: T } = {}
+    const result = {} as Record<K, T>
     for (const fieldName of keyList) {
       const config = this.getFieldConfig(target, fieldName, fieldConfigKey)
       if (config) {
-        result[fieldName] = config
+        result[fieldName as K] = config
       }
     }
     return result
