@@ -78,15 +78,15 @@ export class AnyBaseModel {
    * # 获取表格字段列表
    */
   getTableFieldList() {
-    return getTableFieldList(this)
+    return getTableFieldList(this) as ClassFieldNames<this>[]
   }
 
   /**
    * # 获取表格字段列表
    * @returns 静态方法调用，返回实例方法调用
    */
-  static getTableFieldList() {
-    return new this().getTableFieldList()
+  static getTableFieldList<T extends AnyBaseModel>(this: new () => T) {
+    return new this().getTableFieldList() as ClassFieldNames<T>[]
   }
 
   /**
