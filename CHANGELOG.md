@@ -1,5 +1,11 @@
 # CHANGELOG | 变更日志
 
+## [1.0.11](https://github.com/WuCheng-cn/AnyCore/compare/1.0.10...1.0.11) (2025-08-28)
+
+### ♻️ Code Refactoring | 重构
+
+* 将继承改为Partial类型以增加灵活性 ([d3b3025](https://github.com/WuCheng-cn/AnyCore/commit/d3b30256601b5c3400a04e788295963c54748718))
+
 ## [1.0.10](https://github.com/WuCheng-cn/AnyCore/compare/1.0.9...1.0.10) (2025-08-28)
 
 ### ♻️ Code Refactoring | 重构
