@@ -60,7 +60,7 @@ export class AnyBaseModel {
    */
   getSearchFieldLabel(field: ClassFieldNames<this>) {
     const fieldStr = field as string
-    const searchFieldConfig = this.getSearchFieldConfigObj()[field]
+    const searchFieldConfig = this.getSearchFieldConfigObj()[fieldStr]
     return searchFieldConfig?.label || getCustomFieldName(this, fieldStr) || fieldStr
   }
 
@@ -78,7 +78,7 @@ export class AnyBaseModel {
    * # 获取表格字段列表
    */
   getTableFieldList() {
-    return getTableFieldList(this) as ClassFieldNames<this>[]
+    return getTableFieldList(this)
   }
 
   /**
@@ -86,7 +86,7 @@ export class AnyBaseModel {
    * @returns 静态方法调用，返回实例方法调用
    */
   static getTableFieldList<T extends AnyBaseModel>(this: new () => T) {
-    return new this().getTableFieldList() as ClassFieldNames<T>[]
+    return new this().getTableFieldList()
   }
 
   /**
@@ -111,7 +111,7 @@ export class AnyBaseModel {
    * # 获取搜索字段列表
    */
   getSearchFieldList() {
-    return getSearchFieldList(this) as ClassFieldNames<this>[]
+    return getSearchFieldList(this)
   }
 
   /**
@@ -119,7 +119,7 @@ export class AnyBaseModel {
    * @returns 静态方法调用，返回实例方法调用
    */
   static getSearchFieldList<T extends AnyBaseModel>(this: new () => T) {
-    return new this().getSearchFieldList() as ClassFieldNames<T>[]
+    return new this().getSearchFieldList()
   }
 
   /**
@@ -128,7 +128,7 @@ export class AnyBaseModel {
    * @param fieldList 字段列表
    */
   getSearchFieldConfigObj(...fieldList: ClassFieldNames<this>[]) {
-    return getSearchFieldConfigObj(this, fieldList as string[]) as Record<ClassFieldNames<this>, any>
+    return getSearchFieldConfigObj(this, fieldList as string[])
   }
 
   /**
@@ -144,7 +144,7 @@ export class AnyBaseModel {
    * # 获取表单字段列表
    */
   getFormFieldList() {
-    return getFormFieldList(this) as ClassFieldNames<this>[]
+    return getFormFieldList(this)
   }
 
   /**
@@ -152,7 +152,7 @@ export class AnyBaseModel {
    * @returns 静态方法调用，返回实例方法调用
    */
   static getFormFieldList<T extends AnyBaseModel>(this: new () => T) {
-    return new this().getFormFieldList() as ClassFieldNames<T>[]
+    return new this().getFormFieldList()
   }
 
   /**

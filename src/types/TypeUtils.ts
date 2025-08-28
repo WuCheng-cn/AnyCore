@@ -1,9 +1,7 @@
 /**
- * # 类构造函数包装
+ * # 类包装
  */
-export type ClassConstructor<T> = T extends {
-  new(...args: any[]): any
-} ? T : never
+export type ClassConstructor<T> = new (...args: any[]) => T
 
 /**
  * # 获取类型T中的字段名称（排除方法）

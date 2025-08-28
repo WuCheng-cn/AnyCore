@@ -1,4 +1,3 @@
-import type { AnyBaseModel } from '../model/AnyBaseModel'
 import type { ClassConstructor } from '../types/TypeUtils'
 
 /**
@@ -62,7 +61,7 @@ export interface IDialogPropsSelector<T> extends IDialogProps<T[]> {
   isCacheSelect?: boolean
 
   /** # 初始化查询条件 （如需常驻条件请使用payload） */
-  initData?: InstanceType<ClassConstructor<typeof AnyBaseModel>>
+  initData?: Partial<InstanceType<ClassConstructor<T>>>
 
   /** # 查询时额外携带的参数 （如仅为初始化条件，请使用initData） */
   payload?: Record<string, any>
