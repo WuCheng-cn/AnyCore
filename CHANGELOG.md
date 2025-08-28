@@ -1,5 +1,11 @@
 # CHANGELOG | 变更日志
 
+## [1.0.13](https://github.com/WuCheng-cn/AnyCore/compare/1.0.12...1.0.13) (2025-08-28)
+
+### ♻️ Code Refactoring | 重构
+
+* **interface:** 移除IInputSelectorConfig并优化类型定义 ([84672ed](https://github.com/WuCheng-cn/AnyCore/commit/84672edab0df8ecdd1c0d48f7940eec8d0f8f8c1))
+
 ## [1.0.12](https://github.com/WuCheng-cn/AnyCore/compare/1.0.11...1.0.12) (2025-08-28)
 
 ## [1.0.11](https://github.com/WuCheng-cn/AnyCore/compare/1.0.10...1.0.11) (2025-08-28)
