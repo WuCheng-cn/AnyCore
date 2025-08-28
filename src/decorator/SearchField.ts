@@ -29,6 +29,6 @@ export function getSearchFieldList(target: any) {
  * @param target
  * @param fieldList 字段列表，不传时获取所有标记了``@SearchField``的属性的配置
  */
-export function getSearchFiledConfigObj(target: any, fieldList: string[] = []) {
+export function getSearchFieldConfigObj(target: any, fieldList: string[] = []) {
   return AnyDecoratorHelper.getFieldConfigObject<ISearchFieldConfig>(target, SEARCH_FIELD_PROPERTY_KEY, fieldList)
 }
