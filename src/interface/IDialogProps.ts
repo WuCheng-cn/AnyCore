@@ -1,5 +1,3 @@
-import type { ClassConstructor } from '../types/TypeUtils'
-
 /**
  * # 弹窗的基础props定义接口
  * @param T 弹窗onConfirm时返回的参数类型
@@ -61,7 +59,7 @@ export interface IDialogPropsSelector<T> extends IDialogProps<T[]> {
   isCacheSelect?: boolean
 
   /** # 初始化查询条件 （如需常驻条件请使用payload） */
-  initData?: Partial<InstanceType<ClassConstructor<T>>>
+  initData?: Partial<T>
 
   /** # 查询时额外携带的参数 （如仅为初始化条件，请使用initData） */
   payload?: Record<string, any>

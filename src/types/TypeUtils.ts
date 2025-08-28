@@ -1,7 +1,16 @@
+import type { AnyBaseModel } from '@/model'
+
 /**
  * # 类包装
  */
 export type ClassConstructor<T> = new (...args: any[]) => T
+
+/**
+ * # 带静态方法的类构造函数类型
+ * @template T - 继承自AnyBaseModel的模型类类型
+ * 该类型既包含构造函数签名，又包含AnyBaseModel的所有静态方法
+ */
+export type ClassConstructorWithBaseModel<T extends AnyBaseModel = AnyBaseModel> = ClassConstructor<T> & (typeof AnyBaseModel)
 
 /**
  * # 获取类型T中的字段名称（排除方法）

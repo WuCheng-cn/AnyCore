@@ -3,7 +3,6 @@ import type { EFormItemType } from '../enum/EFormItemType'
 import type { EUploadType } from '../enum/EUploadType'
 import type { IDictionary } from './IDictionary'
 import type { IFieldBaseConfig } from './IFieldBaseConfig'
-import type { IInputSelectorConfig } from './IInputSelectorConfig'
 
 /**
  * # 表单字段配置接口
@@ -91,12 +90,6 @@ export interface IFormFieldConfig extends IFieldBaseConfig {
    *
    */
   disabled?: ((formData: any) => Promise<boolean>) | boolean
-
-  /**
-   * # 选择器输入框的配置
-   * 适用{@link EFormItemType.INPUT_SELECTOR}
-   */
-  selectorConfig?: IInputSelectorConfig
 
   /**
    * # 上传文件类型（默认不限）
