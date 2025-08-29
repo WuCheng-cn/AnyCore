@@ -1,7 +1,7 @@
 {
   "name": "@arayui/core",
   "type": "module",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "基于装饰器语法的快速开发框架核心包",
   "author": "WuCheng-cn",
   "license": "MIT",

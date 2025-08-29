@@ -1,5 +1,11 @@
 # CHANGELOG | 变更日志
 
+## [1.0.15](https://github.com/WuCheng-cn/AnyCore/compare/1.0.14...1.0.15) (2025-08-29)
+
+### 🐛 Bug Fixes | 修复 bug
+
+* **model:** 为字段列表方法添加类型断言 ([41b00fd](https://github.com/WuCheng-cn/AnyCore/commit/41b00fd71bbc2a04829317feae93f02115226c9c))
+
 ## [1.0.14](https://github.com/WuCheng-cn/AnyCore/compare/1.0.13...1.0.14) (2025-08-29)
 
 ### ♻️ Code Refactoring | 重构
