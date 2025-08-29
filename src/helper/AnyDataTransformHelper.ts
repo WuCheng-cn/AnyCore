@@ -7,7 +7,7 @@ export abstract class AnyDataTransformHelper {
    * @param b 排序参考数组
    * @returns 排序后的数组
    */
-  static sortByArray(a: string[], b: string[]) {
+  static sortByArray<T = string>(a: T[], b: T[]) {
     // 创建一个映射，用于快速查找b中元素的位置
     const map = new Map(b.map((value, index) => [value, index]))
 
@@ -36,7 +36,7 @@ export abstract class AnyDataTransformHelper {
   }
 
   /**
-   * # 将对象数组按指定key转换为IOption[]
+   * # 将对象数组按指定key转换为IDictionary[]
    * - data 对象数组
    * - [labelKey, valueKey]
    */
