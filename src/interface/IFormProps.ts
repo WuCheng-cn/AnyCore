@@ -7,7 +7,7 @@ import type { ClassConstructorWithBaseModel, ClassFieldNames } from '@/types'
  */
 export interface IFormProps<T extends AnyBaseModel = AnyBaseModel> {
   /** # 配置实体 */
-  Entity: ClassConstructorWithBaseModel<T>
+  entity: ClassConstructorWithBaseModel<T>
 
   /**  # 列数 */
   cols?: number
