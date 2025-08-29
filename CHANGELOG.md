@@ -1,5 +1,11 @@
 # CHANGELOG | 变更日志
 
+## [1.0.19](https://github.com/WuCheng-cn/AnyCore/compare/1.0.18...1.0.19) (2025-08-29)
+
+### ♻️ Code Refactoring | 重构
+
+* **interface:** 将 IFormProps 中的 Entity 重命名为 entity ([94d9822](https://github.com/WuCheng-cn/AnyCore/commit/94d9822efb793e0424480497ef20451665303458))
+
 ## [1.0.18](https://github.com/WuCheng-cn/AnyCore/compare/1.0.16...1.0.18) (2025-08-29)
 
 ### ♻️ Code Refactoring | 重构
