@@ -1,5 +1,11 @@
 # CHANGELOG | 变更日志
 
+## [1.0.14](https://github.com/WuCheng-cn/AnyCore/compare/1.0.13...1.0.14) (2025-08-29)
+
+### ♻️ Code Refactoring | 重构
+
+* **helper:** 将sortByArray方法改为泛型并更新注释 ([9391f23](https://github.com/WuCheng-cn/AnyCore/commit/9391f235661883ea7c91456286d04d75381406c2))
+
 ## [1.0.13](https://github.com/WuCheng-cn/AnyCore/compare/1.0.12...1.0.13) (2025-08-28)
 
 ### ♻️ Code Refactoring | 重构
