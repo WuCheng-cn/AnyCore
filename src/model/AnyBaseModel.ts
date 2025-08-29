@@ -78,7 +78,7 @@ export class AnyBaseModel {
    * # 获取表格字段列表
    */
   getTableFieldList() {
-    return getTableFieldList(this)
+    return getTableFieldList(this) as ClassFieldNames<this>[]
   }
 
   /**
@@ -86,7 +86,7 @@ export class AnyBaseModel {
    * @returns 静态方法调用，返回实例方法调用
    */
   static getTableFieldList<T extends AnyBaseModel>(this: new () => T) {
-    return new this().getTableFieldList()
+    return new this().getTableFieldList() as ClassFieldNames<T>[]
   }
 
   /**
@@ -111,7 +111,7 @@ export class AnyBaseModel {
    * # 获取搜索字段列表
    */
   getSearchFieldList() {
-    return getSearchFieldList(this)
+    return getSearchFieldList(this) as ClassFieldNames<this>[]
   }
 
   /**
@@ -119,7 +119,7 @@ export class AnyBaseModel {
    * @returns 静态方法调用，返回实例方法调用
    */
   static getSearchFieldList<T extends AnyBaseModel>(this: new () => T) {
-    return new this().getSearchFieldList()
+    return new this().getSearchFieldList() as ClassFieldNames<T>[]
   }
 
   /**
@@ -144,7 +144,7 @@ export class AnyBaseModel {
    * # 获取表单字段列表
    */
   getFormFieldList() {
-    return getFormFieldList(this)
+    return getFormFieldList(this) as ClassFieldNames<this>[]
   }
 
   /**
@@ -152,7 +152,7 @@ export class AnyBaseModel {
    * @returns 静态方法调用，返回实例方法调用
    */
   static getFormFieldList<T extends AnyBaseModel>(this: new () => T) {
-    return new this().getFormFieldList()
+    return new this().getFormFieldList() as ClassFieldNames<T>[]
   }
 
   /**
