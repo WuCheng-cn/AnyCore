@@ -61,7 +61,7 @@ export class AnyBaseModel {
    */
   getSearchFieldLabel(field: ClassFieldNames<this>) {
     const fieldStr = field as string
-    const searchFieldConfig = this.getSearchFieldConfigObj()[fieldStr]
+    const searchFieldConfig = this.getSearchFieldConfigObj()[field]
     return searchFieldConfig?.label || getCustomFieldName(this, fieldStr) || fieldStr
   }
 
@@ -129,7 +129,7 @@ export class AnyBaseModel {
    * @param fieldList 字段列表
    */
   getSearchFieldConfigObj(...fieldList: ClassFieldNames<this>[]) {
-    return getSearchFieldConfigObj(this, fieldList as string[])
+    return getSearchFieldConfigObj(this, fieldList as string[]) as Record<ClassFieldNames<this>, ISearchFieldConfig>
   }
 
   /**

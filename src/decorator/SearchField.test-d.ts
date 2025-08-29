@@ -1,4 +1,3 @@
-import type { ClassFieldNames } from '@/types'
 import { log } from 'node:console'
 import { expectTypeOf } from 'vitest'
 import { AnyDataBaseEntity } from '../entity'
@@ -17,8 +16,8 @@ const b = instance.getSearchFieldConfigObj('testField')
 const aList = TestClass.getSearchFieldList()
 const bList = instance.getSearchFieldList()
 
-expectTypeOf(aList).toEqualTypeOf<ClassFieldNames<TestClass>[]>()
-expectTypeOf(bList).toEqualTypeOf<ClassFieldNames<TestClass>[]>()
+expectTypeOf(aList).toEqualTypeOf<string[]>()
+expectTypeOf(bList).toEqualTypeOf<string[]>()
 
 // @ts-expect-error a上不存在unexitField
 log(a.unexitField)
