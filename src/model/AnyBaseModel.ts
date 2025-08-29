@@ -1,6 +1,7 @@
 import type { ClassFieldNames } from '../types/TypeUtils'
 import type { AnyDictionaryArrayModel } from './AnyDictionaryArrayModel'
 import type { AnyDictionaryModel } from './AnyDictionaryModel'
+import type { IFormFieldConfig, ISearchFieldConfig, ITableFieldConfig } from '@/interface'
 import { getCustomClassConfig } from '../decorator/CustomClass'
 import { getCustomFieldDictionaryArray, getCustomFieldName } from '../decorator/CustomField'
 import { getFormFieldConfigObj, getFormFieldList } from '../decorator/FormField'
@@ -95,7 +96,7 @@ export class AnyBaseModel {
    * @param fieldList 字段列表
    */
   getTableFieldConfigObj(...fieldList: ClassFieldNames<this>[]) {
-    return getTableFieldConfigObj(this, fieldList as string[]) as Record<ClassFieldNames<this>, any>
+    return getTableFieldConfigObj(this, fieldList as string[]) as Record<ClassFieldNames<this>, ITableFieldConfig>
   }
 
   /**
@@ -104,7 +105,7 @@ export class AnyBaseModel {
    * @returns 静态方法调用，返回实例方法调用
    */
   static getTableFieldConfigObj<T extends AnyBaseModel>(this: new () => T, ...fieldList: ClassFieldNames<T>[]) {
-    return new this().getTableFieldConfigObj(...fieldList) as Record<ClassFieldNames<T>, any>
+    return new this().getTableFieldConfigObj(...fieldList) as Record<ClassFieldNames<T>, ITableFieldConfig>
   }
 
   /**
@@ -137,7 +138,7 @@ export class AnyBaseModel {
    * @returns 静态方法调用，返回实例方法调用
    */
   static getSearchFieldConfigObj<T extends AnyBaseModel>(this: new () => T, ...fieldList: ClassFieldNames<T>[]) {
-    return new this().getSearchFieldConfigObj(...fieldList) as Record<ClassFieldNames<T>, any>
+    return new this().getSearchFieldConfigObj(...fieldList) as Record<ClassFieldNames<T>, ISearchFieldConfig>
   }
 
   /**
@@ -161,7 +162,7 @@ export class AnyBaseModel {
    * @param fieldList 字段列表
    */
   getFormFieldConfigObj(...fieldList: ClassFieldNames<this>[]) {
-    return getFormFieldConfigObj(this, fieldList as string[]) as Record<ClassFieldNames<this>, any>
+    return getFormFieldConfigObj(this, fieldList as string[]) as Record<ClassFieldNames<this>, IFormFieldConfig>
   }
 
   /**
@@ -170,7 +171,7 @@ export class AnyBaseModel {
    * @returns 静态方法调用，返回实例方法调用
    */
   static getFormFieldConfigObj<T extends AnyBaseModel>(this: new () => T, ...fieldList: ClassFieldNames<T>[]) {
-    return new this().getFormFieldConfigObj(...fieldList) as Record<ClassFieldNames<T>, any>
+    return new this().getFormFieldConfigObj(...fieldList) as Record<ClassFieldNames<T>, IFormFieldConfig>
   }
 
   /**
