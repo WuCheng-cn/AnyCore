@@ -1,5 +1,12 @@
 # CHANGELOG | 变更日志
 
+## [1.0.18](https://github.com/WuCheng-cn/AnyCore/compare/1.0.16...1.0.18) (2025-08-29)
+
+### ♻️ Code Refactoring | 重构
+
+* **model:** 移除冗余的类型断言 ([c20b32c](https://github.com/WuCheng-cn/AnyCore/commit/c20b32c08f9870c577ca26290c2fd46ecf415fd2))
+* **model:** 移除冗余的类型断言并更新类型定义 ([57b38fb](https://github.com/WuCheng-cn/AnyCore/commit/57b38fbfbfe2d15e457585b4291de74a047c676f))
+
 ## [1.0.17](https://github.com/WuCheng-cn/AnyCore/compare/1.0.16...1.0.17) (2025-08-29)
 
 ### ♻️ Code Refactoring | 重构
