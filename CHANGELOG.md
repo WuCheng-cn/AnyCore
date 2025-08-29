@@ -1,5 +1,11 @@
 # CHANGELOG | 变更日志
 
+## [1.0.16](https://github.com/WuCheng-cn/AnyCore/compare/1.0.15...1.0.16) (2025-08-29)
+
+### ♻️ Code Refactoring | 重构
+
+* **model:** 使用具体类型替代any类型声明 ([de09dad](https://github.com/WuCheng-cn/AnyCore/commit/de09dade66dc4c953c52551fdbe4327169b14276))
+
 ## [1.0.15](https://github.com/WuCheng-cn/AnyCore/compare/1.0.14...1.0.15) (2025-08-29)
 
 ### 🐛 Bug Fixes | 修复 bug
