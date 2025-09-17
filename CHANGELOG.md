@@ -1,5 +1,15 @@
 # CHANGELOG | 变更日志
 
+## [1.0.20](https://github.com/WuCheng-cn/AnyCore/compare/1.0.19...1.0.20) (2025-09-17)
+
+### ♻️ Code Refactoring | 重构
+
+* **interface:** 重命名弹窗事件属性并调整类型 ([208d73a](https://github.com/WuCheng-cn/AnyCore/commit/208d73ab96fb386e7bbcf8346417be95e126fe86))
+
+### 📝 Documentation | 文档变更
+
+* 为多个文件和类添加详细注释文档 ([d6350f3](https://github.com/WuCheng-cn/AnyCore/commit/d6350f3f1600bf4531b33b1bc283371a33e7ea46))
+
 ## [1.0.19](https://github.com/WuCheng-cn/AnyCore/compare/1.0.18...1.0.19) (2025-08-29)
 
 ### ♻️ Code Refactoring | 重构
