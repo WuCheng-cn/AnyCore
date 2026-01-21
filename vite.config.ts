@@ -29,6 +29,7 @@ export default defineConfig({
         interface: resolve(__dirname, 'src/interface/index.ts'),
         model: resolve(__dirname, 'src/model/index.ts'),
         types: resolve(__dirname, 'src/types/index.ts'),
+        ui: resolve(__dirname, 'src/ui/index.ts'),
       },
       // 库的全局变量名（在 UMD 格式中使用）
       name: 'AnyCore',

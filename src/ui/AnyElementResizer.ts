@@ -12,7 +12,7 @@
  * const resizeController = new AnyResizeControllerHelper(element)
  * ```
  */
-export class AnyResizeControllerHelper {
+export class AnyElementResizer {
   /** 目标元素 */
   element: HTMLElement
 
