@@ -1,0 +1,164 @@
+# 运行测试套件的工作流
+name: 运行测试
+
+on:
+  # 在推送到任何分支时运行
+  push:
+    branches: ["*"]
+    # 排除docs目录和文档相关文件
+    paths-ignore:
+      - 'docs/**'
+      - '.vitepress/**'
+      - '.github/workflows/deploy-docs.yml'
+
+  # 在拉取请求时运行
+  pull_request:
+    branches: ["master", "main"]
+
+  # 允许从Actions选项卡手动运行此工作流
+  workflow_dispatch:
+
+# 共享的前置步骤定义
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # 共享的安装步骤
+  setup:
+    name: 环境设置
+    runs-on: ubuntu-latest
+    outputs:
+      cache-hit: ${{ steps.cache-deps.outputs.cache-hit }}
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: 设置Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+          
+      - name: 安装pnpm
+        run: npm install -g pnpm
+        
+      - name: 缓存依赖
+        uses: actions/cache@v4
+        id: cache-deps
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-
+            
+      - name: 安装依赖
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: pnpm install
+        
+      - name: 保存工作区
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-modules-${{ matrix.node-version }}
+          path: |
+            node_modules
+            package.json
+            pnpm-lock.yaml
+          retention-days: 1
+
+  # 测试作业
+  test:
+    name: 运行测试套件 (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    needs: setup
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        
+      - name: 设置Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      - name: 恢复工作区
+        uses: actions/download-artifact@v4
+        with:
+          name: node-modules-${{ matrix.node-version }}
+          
+      - name: 运行类型检查
+        run: pnpm run build --mode typecheck
+        
+      - name: 运行代码检查
+        run: pnpm run lint:fix
+        
+      - name: 运行测试套件
+        run: pnpm run test
+        
+      - name: 运行覆盖率测试
+        run: pnpm run test --coverage
+        
+      - name: 上传测试覆盖率报告
+        if: matrix.node-version == '20.x'
+        uses: codecov/codecov-action@v4
+        with:
+          directory: ./coverage
+          flags: unittests
+          name: codecov-umbrella
+          verbose: true
+
+  # 构建验证作业
+  build:
+    name: 验证构建
+    runs-on: ubuntu-latest
+    needs: setup
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        
+      - name: 设置Node.js环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: 恢复工作区
+        uses: actions/download-artifact@v4
+        with:
+          name: node-modules-20.x
+          
+      - name: 验证构建
+        run: pnpm run build
+        
+      - name: 验证构建产物
+        run: |
+          # 检查是否生成了预期的构建文件
+          if [ ! -f "dist/index.cjs" ]; then
+            echo "❌ CommonJS构建文件缺失"
+            exit 1
+          fi
+          
+          if [ ! -f "dist/index.mjs" ]; then
+            echo "❌ ES模块构建文件缺失"
+            exit 1
+          fi
+          
+          if [ ! -f "dist/types/index.d.ts" ]; then
+            echo "❌ 类型定义文件缺失"
+            exit 1
+          fi
+          
+          echo "✅ 所有构建文件验证通过"

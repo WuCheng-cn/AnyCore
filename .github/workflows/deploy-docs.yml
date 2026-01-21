@@ -51,6 +51,9 @@ jobs:
       - name: 安装依赖
         run: pnpm install
         
+      - name: 运行测试套件
+        run: pnpm run test
+        
       - name: 构建文档
         run: pnpm run docs:build
         
