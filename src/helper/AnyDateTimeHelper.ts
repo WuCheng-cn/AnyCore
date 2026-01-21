@@ -27,7 +27,7 @@ export class AnyDateTimeHelper {
   private static readonly LOCAL_DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/
 
   /** 时间格式正则表达式：HH:MM 或 HH:MM:SS */
-  private static readonly TIME_ONLY_REGEX = /^(\d{2})\{:|-\}(\d{2})(?:\{:|-\}(\d{2}))?$/
+  private static readonly TIME_ONLY_REGEX = /^(\d{2})[:\-](\d{2})(?:[:\-](\d{2}))?$/
 
   /**
    * 格式化日期时间为指定格式字符串
@@ -99,6 +99,7 @@ export class AnyDateTimeHelper {
         return new Date(input)
       }
       else if (typeof input === 'string') {
+        input = input.trim()
         // ISO 8601 格式
         if (this.ISO_DATE_REGEX.test(input)) {
           return new Date(input)
@@ -109,7 +110,9 @@ export class AnyDateTimeHelper {
         }
         // 纯时间格式
         else if (this.TIME_ONLY_REGEX.test(input)) {
-          return new Date(`${new Date().toLocaleDateString()} ${input}`)
+          const now = new Date()
+          const dateString = `${now.getFullYear()}-${this.padZero(now.getMonth() + 1)}-${this.padZero(now.getDate())}`
+          return new Date(`${dateString} ${input}`)
         }
         // 其他格式尝试标准解析
         else {
@@ -207,25 +210,25 @@ export class AnyDateTimeHelper {
     }
 
     // 根据时间差值返回相应的文本描述
-    if (day > 365) {
+    if (day >= 365) {
       return `${Math.floor(day / 365)}年前`
     }
-    else if (day > 30) {
+    else if (day >= 30) {
       return `${Math.floor(day / 30)}月前`
     }
-    else if (day > 7) {
+    else if (day >= 7) {
       return `${Math.floor(day / 7)}周前`
     }
-    else if (day > 1) {
+    else if (day >= 1) {
       return `${Math.floor(day)}天前`
     }
-    else if (hour > 1) {
+    else if (hour >= 1) {
       return `${Math.floor(hour)}小时前`
     }
-    else if (minute > 1) {
+    else if (minute >= 1) {
       return `${Math.floor(minute)}分钟前`
     }
-    else if (second > 1) {
+    else if (second >= 1) {
       return `${Math.floor(second)}秒前`
     }
     else {
