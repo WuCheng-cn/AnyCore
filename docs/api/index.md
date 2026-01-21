@@ -9,6 +9,7 @@ AnyCore主要包含以下模块：
 - [装饰器模块](#装饰器模块)
 - [辅助函数模块](#辅助函数模块)
 - [模型模块](#模型模块)
+- [UI组件模块](#ui组件模块)
 - [接口和枚举](#接口和枚举)
 
 ## 装饰器模块
@@ -130,6 +131,22 @@ function getTableFieldConfigObj(target: any, fieldList?: string[]): Record<strin
 ### AnyValidatorHelper
 
 验证助手类，用于数据验证。
+
+## UI组件模块
+
+UI组件模块提供了交互式UI组件，用于DOM元素的交互控制。
+
+### AnyElementResizer
+
+元素缩放控制器，用于为HTML元素添加8个方向的拖拽缩放功能。
+
+**主要特性：**
+- 8方向缩放控制（4个边和4个角）
+- 边界限制和最小尺寸约束
+- 完整的鼠标事件处理
+- 平滑的缩放过渡效果
+
+**相关文档：** [UI组件API](./ui.md)
 
 ## 模型模块
 
